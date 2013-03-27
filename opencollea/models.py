@@ -5,9 +5,10 @@ from django.template.defaultfilters import slugify
 
 class Course(models.Model):
     title = models.CharField(max_length=50)
-    machine_readable_title = models.SlugField(max_length=50, unique=True)
-    description = models.TextField()
-    website = models.URLField()
+    machine_readable_title = models.SlugField(max_length=50, unique=True,
+                                              blank=True)
+    description = models.TextField(blank=True)
+    website = models.URLField(blank=True)
 
     def save(self, *args, **kwargs):
         if not self.id and not self.machine_readable_title:
@@ -15,6 +16,9 @@ class Course(models.Model):
             self.machine_readable_title = slugify(self.title)
 
         super(Course, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.title
 
 
 class UserProfile(User):
@@ -26,7 +30,8 @@ class UserProfile(User):
 
 class Tag(models.Model):
     title = models.CharField(max_length=20)
-    machine_readable_title = models.SlugField(max_length=50, unique=True)
+    machine_readable_title = models.SlugField(max_length=50, unique=True,
+                                              blank=True)
 
     def save(self, *args, **kwargs):
         if not self.id and self.title and not self.machine_readable_title:
@@ -35,6 +40,9 @@ class Tag(models.Model):
 
         super(Tag, self).save(args, kwargs)
 
+    def __unicode__(self):
+        return self.title
+
 class Attachment(models.Model):
     title = models.CharField(max_length=50)
     user = models.ForeignKey(UserProfile)
@@ -42,9 +50,24 @@ class Attachment(models.Model):
     mime_type = models.CharField(max_length=50)
     tags = models.ManyToManyField(Tag)
 
+    def __unicode__(self):
+        return self.title
+
 class ReferenceType(models.Model):
     title = models.CharField(max_length=20)
-    machine_readable_title = models.CharField(max_length=50, unique=True)
+    machine_readable_title = models.CharField(max_length=50, unique=True,
+                                              blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.machine_readable_title:
+            # Title to machine readable format
+            self.machine_readable_title = slugify(self.title)
+
+        super(ReferenceType, self).save(args, kwargs)
+
+    def __unicode__(self):
+        return self.title
+
 
 class Reference(models.Model):
     title = models.CharField(max_length=50)
@@ -64,6 +87,10 @@ class Question(models.Model):
     title = models.CharField(max_length=20)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
+
+    def __unicode__(self):
+        return self.title
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question)
