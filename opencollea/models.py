@@ -22,7 +22,7 @@ class UserProfile(User):
     language_code = models.CharField(max_length=5, default='en-us')
     avatar = models.ImageField(upload_to='user_profile/avatar')
     courses_enrolled = models.ManyToManyField(Course)
-    website = models.URLField()
+    website = models.URLField(blank=True)
 
 class Tag(models.Model):
     title = models.CharField(max_length=20)
