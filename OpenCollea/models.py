@@ -2,16 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
-class UserProfile(User):
-    timezone = models.CharField(max_length=40, default='Europe/Ljubljana')
-    language_code = models.CharField(max_length=5, default='en-us')
-    avatar = models.ImageField()
-    courses_enrolled = models.ManyToManyField(Course)
-    website = models.URLField()
 
 class Course(models.Model):
     title = models.CharField(max_length=50)
-    machine_readable_title = models.SlugField(max_length=50)
+    machine_readable_title = models.SlugField(max_length=50, unique=True)
     description = models.TextField()
     website = models.URLField()
 
@@ -21,6 +15,36 @@ class Course(models.Model):
             self.machine_readable_title = slugify(self.title)
 
         super(Course, self).save(*args, **kwargs)
+
+
+class UserProfile(User):
+    timezone = models.CharField(max_length=40, default='Europe/Ljubljana')
+    language_code = models.CharField(max_length=5, default='en-us')
+    avatar = models.ImageField(upload_to='user_profile/avatar')
+    courses_enrolled = models.ManyToManyField(Course)
+    website = models.URLField()
+
+class Tag(models.Model):
+    title = models.CharField(max_length=20)
+    machine_readable_title = models.SlugField(max_length=50, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and self.title and not self.machine_readable_title:
+            # Title to machine readable format
+            self.machine_readable_title = slugify(self.title)
+
+        super(Tag, self).save(args, kwargs)
+
+class Attachment(models.Model):
+    title = models.CharField(max_length=50)
+    user = models.ForeignKey(UserProfile)
+    file = models.FileField(upload_to='attachment')
+    mime_type = models.CharField(max_length=50)
+    tags = models.ManyToManyField(Tag)
+
+class ReferenceType(models.Model):
+    title = models.CharField(max_length=20)
+    machine_readable_title = models.CharField(max_length=50, unique=True)
 
 class Reference(models.Model):
     title = models.CharField(max_length=50)
@@ -34,28 +58,6 @@ class Reference(models.Model):
     note = models.TextField()
     published = models.DateField()
     link = models.URLField()
-
-class ReferenceType(models.Model):
-    title = models.CharField(max_length=20)
-    machine_readable_title = models.CharField(max_length=50, unique=True)
-
-class Attachment(models.Model):
-    title = models.CharField(max_length=50)
-    user = models.ForeignKey(UserProfile)
-    file = models.FileField()
-    mime_type = models.CharField(max_length=50)
-    tags = models.ManyToManyField(Tag)
-
-class Tag(models.Model):
-    title = models.CharField(max_length=20)
-    machine_readable_title = models.SlugField(max_length=50, unique=True)
-
-    def save(self, *args, **kwargs):
-        if not self.id and self.title and not self.machine_readable_title:
-            # Title to machine readable format
-            self.machine_readable_title = slugify(self.title)
-
-        super(Tag, self).save(args, kwargs)
 
 class Question(models.Model):
     user = models.ForeignKey(UserProfile)
