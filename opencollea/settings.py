@@ -1,4 +1,5 @@
 # Django settings for OpenCollea project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -107,8 +108,10 @@ ROOT_URLCONF = 'opencollea.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'opencollea.wsgi.application'
 
-import os
+
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+
+#TEMPLATE_DIRS = (    os.path.join(SITE_ROOT, 'templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -122,6 +125,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'opencollea',
+    'portal',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,3 +156,11 @@ LOGGING = {
         },
     }
 }
+
+# URL of the login page.
+LOGIN_URL = '/login/'
+
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'static')
+#MEDIA_URL = '/static/'
+ADMIN_MEDIA_PREFIX = '/media/'
