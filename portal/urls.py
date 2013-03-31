@@ -1,11 +1,13 @@
-__author__ = 'Andraz'
-
-from django.conf.urls import *
-from portal.views import *
+from django.conf.urls import url, patterns
+from portal import views
 
 urlpatterns = patterns('',
 
     # Main web portal entrance.
-    (r'^$', portal_main_page),
+    url(r'^$', views.main_page, name='main'),
+
+    # Login / logout.
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', views.logout_page, name='logout'),
 
 )
