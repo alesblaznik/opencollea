@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
-from opencollea.views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from portal import views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -16,14 +17,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    (r'^$', main_page),
-
-    # Login / logout.
-    (r'^login/$', 'django.contrib.auth.views.login'),
-    (r'^logout/$', logout_page),
-
     # Web portal.
-    (r'^portal/', include('portal.urls')),
+    url(r'^portal/', include('portal.urls', namespace='portal')),
 
     # Serve static content.
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
