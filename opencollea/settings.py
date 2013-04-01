@@ -161,6 +161,6 @@ LOGGING = {
 LOGIN_URL = '/login/'
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(SITE_ROOT, 'static')
-#MEDIA_URL = '/static/'
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
+MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/media/'
