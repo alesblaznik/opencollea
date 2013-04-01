@@ -9,6 +9,11 @@ from portal import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', "opencollea.views.home", name='home'),
+    url(r'^courses', "opencollea.views.courses", name='courses'),
+    url(r'^users', "opencollea.views.users", name='users'),
+    url(r'^forums', "opencollea.views.forums", name='forums'),
+
     # Examples:
     # url(r'^$', 'opencollea.views.home', name='home'),
     # url(r'^opencollea/', include('opencollea.foo.urls')),
