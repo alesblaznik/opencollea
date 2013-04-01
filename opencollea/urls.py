@@ -4,7 +4,6 @@ from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from portal import views
 
 admin.autodiscover()
 
@@ -26,6 +25,10 @@ urlpatterns = patterns('',
 
     # Web portal.
     url(r'^portal/', include('portal.urls', namespace='portal')),
+
+    # List of Mooc Courses
+    url(r'^find_courses/', include('find_courses.urls',
+                                   namespace='find_courses')),
 
     # Serve static content.
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
