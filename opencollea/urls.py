@@ -1,7 +1,11 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
+from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from portal import views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,4 +18,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-)
+
+    # Web portal.
+    url(r'^portal/', include('portal.urls', namespace='portal')),
+
+    # Serve static content.
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+     {'document_root': 'static'}),
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
