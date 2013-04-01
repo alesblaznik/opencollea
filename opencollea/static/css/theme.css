@@ -1,0 +1,78 @@
+html{overflow-y:scroll;}
+
+body{
+    font-size: 0.9em;
+    color: #2d2d2d;
+    background-color: #F6F4F0;
+    margin: 0px;
+    font-family: 'Quattrocento', serif;
+}
+
+h1 {
+    font-family: 'Calligraffitti', cursive;
+    font-size: 3em;
+    padding: 0.5em 0 0 0.5em;
+    text-shadow: 50px 10px #e0e0e0;
+    margin: 0;
+}
+
+.header {
+    border: 0px;
+    /*border-bottom: 1px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: #ccc;*/
+    min-height: 50px;
+}
+
+/* M E N U*/
+ul.menu {
+    font-size: 1.3em;
+    list-style-type: none;
+    text-align: center;
+}
+ul.menu li {
+    display: inline;
+}
+ul.menu li a
+{
+    text-decoration: none;
+    padding: .2em 1.5em;
+    color: #fff;
+    background-color: #910755;
+    text-shadow: 1px 1px #ccc;
+}
+ul.menu li a:hover
+{
+    color: #910755;
+    background-color: #fff;
+}
+/* end of M E N U*/
+
+.body {
+    background-color: #fff;
+    padding: 20px;
+    min-height: 200px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-style: solid;
+}
+
+.footer {
+   /* border: 0px;
+    border-bottom: 1px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: #ccc;*/
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    padding: 10px;
+}
