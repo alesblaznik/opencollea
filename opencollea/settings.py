@@ -124,8 +124,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_cron',
     'opencollea',
     'portal',
+    'find_courses',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -164,3 +166,14 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/media/'
+
+
+# Cron Jobs
+# Usage:
+#   >> python manage.py runcrons
+import find_courses.cron
+
+CRON_CLASSES = [
+    # Imports (syncs) mooc courses.
+    'find_courses.cron.ImportMoocCoursesCronJob',
+]

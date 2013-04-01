@@ -21,6 +21,10 @@ urlpatterns = patterns('',
     # Web portal.
     url(r'^portal/', include('portal.urls', namespace='portal')),
 
+    # List of Mooc Courses
+    url(r'^find_courses/', include('find_courses.urls',
+                                   namespace='find_courses')),
+
     # Serve static content.
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': 'static'}),
