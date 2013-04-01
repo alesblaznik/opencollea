@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^home', "opencollea.views.home", name='home'),
+    url(r'^$', "opencollea.views.home", name='home'),
     url(r'^courses', "opencollea.views.courses", name='courses'),
     url(r'^users', "opencollea.views.users", name='users'),
     url(r'^forums', "opencollea.views.forums", name='forums'),
