@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenCollea - {{ title }}</title>
+    <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}">
+</head>
+<body>
+<h1>OpenCollea - {{ title }}</h1>
+<div class="login">Login</div>
+<div class="header">
+    <ul class="menu">
+        <li><a href="/">OpenCollea</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/users">Users</a></li>
+        <li><a href="/forums">Forums</a></li>
+    </ul>
+</div>
+<div class="body">{% block content %}Pozdravljeni na strani <b>OpenCollea</b>{% endblock %}</div>
+<div class="footer">OpenCollea Copyright 2013</div>
+</body>
+</html>

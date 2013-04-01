@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenCollea - Error 404</title>
+    <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}">
+</head>
+<body>
+<h1>OpenCollea - Error 404</h1>
+<div class="body">Oh noes! That mean's that you've requested something that's non-existent (like god or something).
+    The thing you've requested is supposedly: {{ request_path }}</div>
+<div class="footer">OpenCollea Copyright 2013</div>
+</body>
+</html>

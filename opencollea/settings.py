@@ -1,6 +1,7 @@
 # Django settings for OpenCollea project.
 import os
 
+#if we want to show custom error pages this one has to be False
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
