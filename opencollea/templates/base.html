@@ -9,7 +9,15 @@
 </head>
 <body>
 <h1>OpenCollea - {{ title }}</h1>
-<div class="login"><a href="{% url 'portal:login' %}">Login</a>{{ user.username }}</div>
+<div class="login">
+    {% if user.is_authenticated %}
+        {{ user.username }},
+        <a href="{% url 'portal:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'portal:login' %}">Login</a>
+    {% endif %}
+
+</div>
 <div class="header">
     <ul class="menu">
         <li><a href="/">OpenCollea</a></li>
