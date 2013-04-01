@@ -4,7 +4,6 @@ from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from portal import views
 
 admin.autodiscover()
 
