@@ -9,11 +9,12 @@
 </head>
 <body>
 <h1>OpenCollea - {{ title }}</h1>
-<div class="login">Login</div>
+<div class="login"><a href="{% url 'portal:login' %}">Login</a>{{ user.username }}</div>
 <div class="header">
     <ul class="menu">
         <li><a href="/">OpenCollea</a></li>
         <li><a href="/courses">Courses</a></li>
+        <li><a href="{% url 'find_courses:index' %}">Find Courses</a></li>
         <li><a href="/users">Users</a></li>
         <li><a href="/forums">Forums</a></li>
     </ul>

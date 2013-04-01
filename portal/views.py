@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 
 def main_page(request):
-    return render_to_response('index.html')
+    return render_to_response('portal/index.html')
 
 def logout_page(request):
     """
