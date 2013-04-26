@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -30,7 +31,5 @@ urlpatterns = patterns('',
     url(r'^find_courses/', include('find_courses.urls',
                                    namespace='find_courses')),
 
-    # Serve static content.
-    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': 'static'}),
+
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

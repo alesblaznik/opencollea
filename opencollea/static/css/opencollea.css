@@ -1,0 +1,18 @@
+@media screen and (min-width: 980px) {
+  body {
+    padding-top: 41px;  /* Static navbar */
+  }
+}
+
+/**
+ * Bootstrap overrides
+ */
+ .dropdown-menu > li > * {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #333333;
+  white-space: nowrap;
+ }

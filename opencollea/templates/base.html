@@ -1,33 +1,89 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>OpenCollea - {{ title }}</title>
-    <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load assets %}
+    {% assets "css_all" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
 </head>
 <body>
-<h1>OpenCollea - {{ title }}</h1>
-<div class="login">
-    {% if user.is_authenticated %}
-        {{ user.username }},
-        <a href="{% url 'portal:logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'portal:login' %}">Login</a>
-    {% endif %}
+    <div class="container-fluid">
+      <!-- Navbar -->
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="#">OpenCollea</a>
 
-</div>
-<div class="header">
-    <ul class="menu">
-        <li><a href="/">OpenCollea</a></li>
-        <li><a href="/courses">Courses</a></li>
-        <li><a href="{% url 'find_courses:index' %}">Find Courses</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="/forums">Forums</a></li>
-    </ul>
-</div>
-<div class="body">{% block content %}Pozdravljeni na strani <b>OpenCollea</b>{% endblock %}</div>
+            <!-- My classes -->
+            <ul class="nav">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-book icon-white"></i>
+                  My Classes
+                  <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li class="nav-header">Recent classes</li>
+                  <li><a href="#">Izbrana poglavja računalništva in informatike</a></li>
+                  <li><a href="#">Postopki razvoja programske opreme</a></li>
+                  <li><a href="#">Spletno programiranje</a></li>
+                  <li><a href="#">Tehnologija programske opreme</a></li>
+                  <li><a href="#">Inteligentni sistemi</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">More classes</li>
+                  <li>
+                    <form class="navbar-form">
+                      <input type="text" placeholder="Autocomplete search">
+                      <button class="btn btn-primary">Go!</button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+
+              <li><a href="#"><i class="icon-globe icon-white"></i> Discover</a></li>
+              <li><a href="#"><i class="icon-glass icon-white"></i> Socialize</a></li>
+            </ul>
+
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-user icon-white"></i>
+                  You
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">My Profile</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{% url 'portal:logout' %}">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row-fluid">
+        <div class="span3">
+            {% block sidebar %}{% endblock %}
+        </div>
+
+        <div class="span9">
+            {% block content %}Pozdravljeni na strani <b>OpenCollea</b>{% endblock %}
+        </div>
+      </div>
+
+    </div>
+
 <div class="footer">OpenCollea Copyright 2013</div>
+
+    {% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 </body>
 </html>
