@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="courses-list">
+    <p>
+        Feel free to join one of <b>{{ courses|length }}</b> online courses
+        and start collaborating with other students on OpenCollea.
+    </p>
+    <ul>
+        {% for course in courses %}
+            <li>
+                <a target="_blank" href="{{ course.url }}">{{ course.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

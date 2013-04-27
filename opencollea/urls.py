@@ -1,7 +1,11 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -19,4 +23,13 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-)
+
+    # Web portal.
+    url(r'^portal/', include('portal.urls', namespace='portal')),
+
+    # List of Mooc Courses
+    url(r'^find_courses/', include('find_courses.urls',
+                                   namespace='find_courses')),
+
+
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,10 @@
 # Django settings for OpenCollea project.
+import os
 
 #if we want to show custom error pages this one has to be False
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+ASSETS_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -62,7 +64,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -108,8 +110,10 @@ ROOT_URLCONF = 'opencollea.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'opencollea.wsgi.application'
 
-import os
+
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+
+#TEMPLATE_DIRS = (    os.path.join(SITE_ROOT, 'templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -122,7 +126,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_assets',
+    'django_cron',
     'opencollea',
+    'portal',
+    'find_courses',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -153,3 +161,24 @@ LOGGING = {
         },
     }
 }
+
+# URL of the login page.
+LOGIN_URL = '/login/'
+
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
+MEDIA_URL = '/media/'
+ADMIN_MEDIA_PREFIX = '/media/'
+
+ASSETS_ROOT = STATIC_ROOT
+ASSETS_URL = STATIC_URL
+
+# Cron Jobs
+# Usage:
+#   >> python manage.py runcrons
+import find_courses.cron
+
+CRON_CLASSES = [
+    # Imports (syncs) mooc courses.
+    'find_courses.cron.ImportMoocCoursesCronJob',
+]
