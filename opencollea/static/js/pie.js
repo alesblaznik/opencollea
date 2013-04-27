@@ -49,6 +49,7 @@ $(function () {
         labels.push($("span:eq(0)", this).text() + ' ' + $("span:eq(1)", this).text());
     });
     //$("#coursesList").hide();
-    console.log($("#coursesList"));
-    Raphael("holder", 700, 700).pieChart(350, 350, 200, values, labels, "#fff");
+    if (values.length > 0 && values.length == labels.length) {
+        Raphael("holder", 700, 700).pieChart(350, 350, 200, values, labels, "#fff");
+    }
 });
