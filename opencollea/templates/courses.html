@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     {{ content|safe }}
-    <table>
-        <tr>
-            <td>Course #1</td>
-            <td>Course #2</td>
-        </tr>
-        <tr>
-            <td>3425</td>
-            <td>134</td>
-        </tr>
-        <tr>
-            <td>44</td>
-            <td>13</td>
-        </tr>
-    </table>
+
+    {% if course_list %}
+    <ul id="coursesList" class="doubleList">
+        {% for course in course_list %}
+            <li><span>{{ course.title }}</span><span>20%</span></li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+        <p> No courses are available.</p>
+    {% endif %}
+
+    <div id="holder" class="pieContainer"></div>
+    
 {% endblock content %}
