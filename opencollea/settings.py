@@ -186,3 +186,7 @@ CRON_CLASSES = [
     # Imports (syncs) mooc courses.
     'find_courses.cron.ImportMoocCoursesCronJob',
 ]
+
+FIXTURE_DIRS = (
+   '/opencollea/fixtures/',
+)
