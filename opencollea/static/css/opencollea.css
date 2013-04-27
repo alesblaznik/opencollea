@@ -16,3 +16,11 @@
   color: #333333;
   white-space: nowrap;
  }
+
+
+ul.doubleList span {
+    padding: 0 5px;
+}
+.pieContainer {
+    margin: -80px 0 0 -180px;
+}

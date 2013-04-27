@@ -3,14 +3,16 @@
     {{ content|safe }}
 
     {% if course_list %}
-    <ul>
+    <ul id="coursesList" class="doubleList">
         {% for course in course_list %}
-            <li>{{ course.title }}</li>
+            <li><span>{{ course.title }}</span><span>20%</span></li>
         {% endfor %}
     </ul>
 
     {% else %}
         <p> No courses are available.</p>
     {% endif %}
+
+    <div id="holder" class="pieContainer"></div>
     
 {% endblock content %}

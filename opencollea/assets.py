@@ -14,5 +14,7 @@ js = Bundle('js/jquery-2.0.0.js',
             'js/services.js',
             'js/controllers.js',
             'js/app.js',
+            'js/raphael.js',
+            'js/pie.js',
             output='js/opencollea.js')
 register('js_all', js)
