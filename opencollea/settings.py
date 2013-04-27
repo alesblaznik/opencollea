@@ -4,6 +4,7 @@ import os
 #if we want to show custom error pages this one has to be False
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+ASSETS_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -63,7 +64,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -125,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_assets',
     'django_cron',
     'opencollea',
     'portal',
@@ -168,6 +170,8 @@ MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
+ASSETS_ROOT = STATIC_ROOT
+ASSETS_URL = STATIC_URL
 
 # Cron Jobs
 # Usage:
