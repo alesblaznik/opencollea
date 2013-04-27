@@ -8,7 +8,11 @@ css = Bundle('css/bootstrap.min.css',
 register('css_all', css)
 
 # JavaScript
-js = Bundle('js/jquery-2.0.0.min.js',
-            'js/bootstrap.min.js',
+js = Bundle('js/jquery-2.0.0.js',
+            'js/bootstrap.js',
+            'js/angular.js',
+            'js/services.js',
+            'js/controllers.js',
+            'js/app.js',
             output='js/opencollea.js')
 register('js_all', js)
