@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="opencollea">
 <head>
     <title>OpenCollea - {{ title }}</title>
     <meta charset="utf-8">
@@ -59,7 +59,9 @@
                 <ul class="dropdown-menu">
                   <li><a href="#">My Profile</a></li>
                   <li class="divider"></li>
-                  <li><a href="{% url 'portal:logout' %}">Sign Out</a></li>
+                  <li ng-controller="AuthController">
+                      <a ng-click="logout()">Sign Out</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -80,11 +82,10 @@
 
     </div>
 
-    <div class="footer">OpenCollea Copyright 2013</div>
+<div class="footer">OpenCollea Copyright 2013</div>
 
     {% assets "js_all" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-
 </body>
 </html>
