@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django_assets',
     'django_cron',
     'opencollea',
-    'portal',
+#    'portal',
     'find_courses',
 )
 
@@ -172,6 +172,9 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 ASSETS_ROOT = STATIC_ROOT
 ASSETS_URL = STATIC_URL
+
+TASTYPIE_ALLOW_MISSING_SLASH = True
+APPEND_SLASH = False
 
 # Cron Jobs
 # Usage:

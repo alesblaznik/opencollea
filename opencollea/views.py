@@ -1,7 +1,13 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/portal/login/')
+def login(request):
+    dict = {
+        "redirectTo": request.GET.get('next', '/')
+    }
+    return render_to_response('login.html', dict)
+
+@login_required
 def home(request):
     dict = {
         "user": request.user,
@@ -11,7 +17,7 @@ def home(request):
     }
     return render_to_response('home.html', dict)
 
-@login_required(login_url='/portal/login/')
+@login_required
 def courses(request):
     dict = {
         "user": request.user,
@@ -20,7 +26,7 @@ def courses(request):
     }
     return render_to_response('courses.html', dict)
 
-@login_required(login_url='/portal/login/')
+@login_required
 def users(request):
     dict = {
         "user": request.user,
@@ -29,7 +35,7 @@ def users(request):
     }
     return render_to_response('users.html', dict)
 
-@login_required(login_url='/portal/login/')
+@login_required
 def forums(request):
     dict = {
         "user": request.user,
