@@ -1,12 +1,18 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from opencollea import settings
-
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
+from tastypie.api import Api
+from opencollea.resources import CourseResource
+from opencollea import views
+
 admin.autodiscover()
+
+v1_api = Api(api_name='v1')
+v1_api.register(CourseResource())
+
 
 urlpatterns = patterns('',
     url(r'^$', "opencollea.views.home", name='home'),
@@ -14,6 +20,8 @@ urlpatterns = patterns('',
     url(r'^users', "opencollea.views.users", name='users'),
     url(r'^forums', "opencollea.views.forums", name='forums'),
 
+    # tole nevem kaj dela / ce sploh mora bit...
+    url(r'^api/', include(v1_api.urls)),
     # Examples:
     # url(r'^$', 'opencollea.views.home', name='home'),
     # url(r'^opencollea/', include('opencollea.foo.urls')),
