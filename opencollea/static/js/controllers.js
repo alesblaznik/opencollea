@@ -27,3 +27,7 @@ angular.module('opencollea').controller({
   }
 
 });
+
+function OpenColleaCtrl($scope, Course) {
+    $scope.courses = Course.query();
+}

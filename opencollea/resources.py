@@ -7,6 +7,8 @@ from tastypie.resources import ModelResource
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
 
+from opencollea.models import Course
+
 class LoginResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
@@ -59,3 +61,8 @@ class LoginResource(ModelResource):
             return self.create_response(request, { 'success': True })
         else:
             return self.create_response(request, { 'success': False }, HttpUnauthorized)
+
+class CourseResource(ModelResource):
+    class Meta:
+        queryset = Course.objects.all()
+        resource_name = 'course'

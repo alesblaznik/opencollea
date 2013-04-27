@@ -11,8 +11,12 @@ register('css_all', css)
 js = Bundle('js/jquery-2.0.0.js',
             'js/bootstrap.js',
             'js/angular.js',
+            'js/angular_resource.js',
             'js/http-auth-interceptor.js',
+            'js/services.js',
             'js/app.js',
             'js/controllers.js',
+            'js/raphael.js',
+            'js/pie.js',
             output='js/opencollea.js')
 register('js_all', js)
