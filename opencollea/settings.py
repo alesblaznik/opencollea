@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'opencollea',
 #    'portal',
     'find_courses',
+    'tastypie',
 )
 
 # A sample logging configuration. The only tangible logging

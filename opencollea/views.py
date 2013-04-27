@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from opencollea.models import Course
 
 def login(request):
     dict = {
@@ -22,7 +23,8 @@ def courses(request):
     dict = {
         "user": request.user,
         "title": "Courses",
-        "content": "We are very pleased to bla bla ..."
+        "content": "We are very pleased to bla bla ...",
+        'course_list': Course.objects.all(),
     }
     return render_to_response('courses.html', dict)
 
