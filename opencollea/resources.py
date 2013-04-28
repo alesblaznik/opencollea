@@ -85,7 +85,7 @@ class CourseResource(ModelResource):
         ]
 
     def new(self, request, **kwargs):
-        from find_courses.models import Course
+        from opencollea.models import Course
         self.method_check(request, allowed=['post'])
         required = []
         data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
