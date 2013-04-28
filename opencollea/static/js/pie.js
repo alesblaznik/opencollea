@@ -43,8 +43,6 @@ Raphael.fn.pieChart = function (cx, cy, r, values, labels, stroke) {
     return chart;
 };
 function globalInitPie(vals){
-    console.log('Pie loaded');
-    console.log(vals);
     var values = [], labels = [];
     for (var i = 0; i < vals.length; i++){
         labels.push(vals[i].title);
