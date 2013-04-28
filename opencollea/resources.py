@@ -76,7 +76,7 @@ class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
-	
+
     def override_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/new%s$" %
