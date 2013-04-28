@@ -7,6 +7,7 @@ var app = angular.module('opencollea', ['openColleaServices','http-auth-intercep
             .when('/profile/:username', {templateUrl: '/static/partials/profile/user-profile-class.html' })
             .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html'})
             .when('/auth/:username/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html'})
+			.when('/new-course', {templateUrl: '/static/partials/course/new-course.html', controller: CourseCtrl})
             .otherwise({redirectTo: '/'});
     }]);
 

@@ -76,3 +76,45 @@ class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
+	
+    def override_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/new%s$" %
+                (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('new'), name="course_new"),
+        ]
+
+    def new(self, request, **kwargs):
+        from find_courses.models import Course
+        self.method_check(request, allowed=['post'])
+        required = []
+        data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+
+        c = Course()
+        c.title = data.get('title', '') #required
+        c.machine_readable_title = data.get('machine_readable_title', '')
+        c.description = data.get('description', '') #required
+        c.website = data.get('website', '')
+
+        if c.title == '':
+            required.append('title')
+
+        if c.description == '':
+            required.append('description')
+
+        if len(required) > 0:
+            return self.create_response(request, {
+                'required': required
+            })
+        else:
+            c.save()
+
+        #, machine_readable_title = d_machine_readable_title, description = d_description, website = d_website
+        if c.pk > 0:
+            return self.create_response(request, {
+                'success': True
+            })
+        else:
+            return self.create_response(request, {
+                'error': 'Entry not successful'
+            })
