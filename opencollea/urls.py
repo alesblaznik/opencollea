@@ -26,7 +26,6 @@ urlpatterns = patterns('',
     url(r'^courses', "opencollea.views.courses", name='courses'),
     url(r'^users', "opencollea.views.users", name='users'),
     url(r'^forums', "opencollea.views.forums", name='forums'),
-    url(r'^actions', "opencollea.views.actions", name='actions'),
 
     # Examples:
     # url(r'^$', 'opencollea.views.home', name='home'),
