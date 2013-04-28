@@ -1,5 +1,5 @@
 
-angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
+var app = angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {controller: OpenColleaCtrl})
@@ -9,3 +9,10 @@ angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
             .when('/auth/:username/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html'})
             .otherwise({redirectTo: '/'});
     }]);
+
+/**
+ * Inicializacija
+ */
+app.run(function($rootScope, Auth) {
+    $rootScope.user = Auth.getCurrentUser();
+});
