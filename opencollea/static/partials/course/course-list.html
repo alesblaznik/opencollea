@@ -9,13 +9,14 @@
     <div class="span9">
       <!--Body content-->
 
-      <ul class="courses">
+      <ul class="courses doubleList id="coursesList">
         <li ng-repeat="course in courses.objects | filter:query">
-            {{ course.title }}
+            <span>{{ course.title }}</span>
+            <span class="rightFloater"><a href="#">Enroll me</a></span>
         </li>
       </ul>
 
-
     </div>
+    <div id="holder" class="pieContainer"></div>
   </div>
 </div>
