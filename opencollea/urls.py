@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
 from tastypie.api import Api
-from opencollea.resources import LoginResource
+from opencollea.resources import LoginResource, CourseResource
 from opencollea import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -12,6 +12,7 @@ admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(LoginResource())
+v1_api.register(CourseResource())
 
 urlpatterns = patterns('',
     # API
