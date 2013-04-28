@@ -28,7 +28,7 @@ angular.module('opencollea').controller({
 
 });
 
-function OpenColleaCtrl($scope, Course) {
+function CourseListCtrl($scope, Course) {
     $scope.courses = Course.query();
 }
 
@@ -67,3 +67,4 @@ function CourseCtrl($scope, $http) {
             $(msgDiv).show();
         });
     }
+}

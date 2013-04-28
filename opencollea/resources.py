@@ -117,8 +117,4 @@ class CourseResource(ModelResource):
         else:
             return self.create_response(request, {
                 'error': 'Entry not successful'
-<<<<<<< HEAD
             })
-=======
-            })
->>>>>>> 0be4d7c559dc15c48715fd795186a561a6a1e237
