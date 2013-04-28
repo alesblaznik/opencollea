@@ -57,7 +57,7 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">My Profile</a></li>
+                  <li><a href="#/profile/{{ user.username }}">My Profile</a></li>
                   <li class="divider"></li>
                   <li ng-controller="AuthController">
                       <a ng-click="logout()" href="#">Sign Out</a>
@@ -70,15 +70,7 @@
       </div>
 
 
-      <div class="row-fluid">
-        <div class="span3">
-            {% block sidebar %}{% endblock %}
-        </div>
-
-        <div class="span9">
-            {% block content %}Pozdravljeni na strani <b>OpenCollea</b>{% endblock %}
-        </div>
-      </div>
+      <div ng-view></div>
 
     </div>
 
