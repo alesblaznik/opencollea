@@ -24,6 +24,9 @@ class LoginResource(ModelResource):
             url(r'^(?P<resource_name>%s)/logout%s$' %
                 (self._meta.resource_name, trailing_slash()),
                 self.wrap_view('logout'), name='api_logout'),
+            url(r'^(?P<resource_name>%s)/currentUser%s$' %
+                (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('current_user'), name='api_current_user'),
         ]
 
     def login(self, request, **kwargs):
@@ -61,6 +64,13 @@ class LoginResource(ModelResource):
             return self.create_response(request, { 'success': True })
         else:
             return self.create_response(request, { 'success': False }, HttpUnauthorized)
+
+    def current_user(self, request, **kwargs):
+        user = {
+            'id': request.user.id,
+            'username': request.user.username,
+        }
+        return self.create_response(request, user)
 
 class CourseResource(ModelResource):
     class Meta:

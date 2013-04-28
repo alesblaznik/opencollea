@@ -1,7 +1,7 @@
 angular.module('openColleaServices', ['ngResource'])
-    .factory('User', function ($resource) {
-        return $resource('/api/v1/user/:userId', {}, {
-           'get': {method: 'GET'}
+    .factory('Auth', function ($resource) {
+        return $resource('/api/v1/auth/currentUser', {}, {
+           'getCurrentUser': {method: 'GET'}
         });
     })
     .factory('Course', function ($resource) {
