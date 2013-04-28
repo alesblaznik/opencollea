@@ -67,4 +67,3 @@ function CourseCtrl($scope, $http) {
             $(msgDiv).show();
         });
     }
-}
