@@ -32,3 +32,12 @@ ul.doubleList span {
     padding: 10px 0;
     border-top: 1px solid #ccc;
 }
+
+.requiredFieldError {
+    background-color: lightcoral !important;
+}
+
+.msgDiv {
+    display: none;
+    width: 206px;
+}
