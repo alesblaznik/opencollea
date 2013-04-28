@@ -29,7 +29,29 @@ angular.module('opencollea').controller({
 });
 
 function CourseListCtrl($scope, Course) {
-    $scope.courses = Course.query();
+    var courses = [];
+    $scope.courses = Course.query(function(e){
+        var sum = 0;
+        for (var i = 0; i < e.objects.length; i++){
+            var obj = e.objects[i];
+            var title = obj.title;
+            var value = Math.floor((Math.random()*200)+1);
+            var course = {title: title, value: value};
+            sum += value;
+            courses.push(course);
+        }
+        // normalize to percentage
+        for (var i = 0; i < courses.length; i++){
+            var percent = Math.round(courses[i].value / sum * 100);
+            console.log(percent);
+            courses[i].title += ' ' + percent + '%';
+            courses[i].value = percent;
+        }
+
+        globalInitPie(courses)
+    });
+    /*$scope.$on('$viewContentLoaded', function(){
+    });*/
 }
 
 function CourseCtrl($scope, $http) {
