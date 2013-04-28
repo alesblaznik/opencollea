@@ -4,6 +4,7 @@ var app = angular.module('opencollea', ['openColleaServices','http-auth-intercep
         $routeProvider
             .when('/', {controller: CourseListCtrl})
             .when('/course-list', {templateUrl: '/static/partials/course/course-list.html', controller: CourseListCtrl})
+            .when('/course/:courseTitle', {templateUrl: 'static/partials/course/course-detail.html', controller: CourseDetailCtrl})
             .when('/profile/:username', {templateUrl: '/static/partials/profile/user-profile-class.html' })
             .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html'})
             .when('/auth/:username/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html'})
