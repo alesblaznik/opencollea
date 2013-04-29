@@ -24,7 +24,8 @@ class Mooc(object):
 
 
 class Course(object):
-    def __init__(self, title='', url='', university='', professor='', begin_date=None, length=None):
+    def __init__(self, title='', url='', university='',
+                 professor='', begin_date=None, length=None):
         self.title = title
         self.url = url
         self.university = university
@@ -32,6 +33,7 @@ class Course(object):
         self.begin_date = begin_date
         self.length = length
         self.categories = set()
+
 
 class Fetcher(object):
     def get_all_providers(self):

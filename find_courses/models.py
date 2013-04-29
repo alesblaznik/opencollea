@@ -1,6 +1,7 @@
 from django.db import models
 from hashlib import md5
 
+
 class Course(models.Model):
     hash = models.CharField(primary_key=True, max_length=32)
     title = models.CharField(max_length=128)
@@ -16,8 +17,5 @@ class Course(models.Model):
 
         super(Course, self).save(*args, **kwargs)
 
-
     def __unicode__(self):
         return self.source + " - " + self.title
-
-
