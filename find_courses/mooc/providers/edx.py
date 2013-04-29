@@ -1,6 +1,7 @@
 from find_courses.mooc.models import Mooc, Course
 from bs4 import BeautifulSoup
 
+
 class Edx(Mooc):
     TITLE = 'edX'
     MOOC_URL = 'https://www.edx.org'
@@ -17,10 +18,11 @@ class Edx(Mooc):
         courses = soup.find_all('article', class_='course')
         for course in courses:
             c = Course()
-            c.title = ' '.join(course.find('header').find('h2').text.split(' ')[1:])
+            c.title = ' '.join(course.find('header').find('h2')
+                               .text.split(' ')[1:])
             c.url = self.MOOC_URL + course.find('a').attrs['href']
-            c.university = course.section.find('div', class_='bottom').find('a', class_='university').string
-            c.begin_date = course.section.find('div', class_='bottom').find('span', class_='start-date').string
+            c.university = course.section.find('div', class_='bottom')\
+                .find('a', class_='university').string
+            c.begin_date = course.section.find('div', class_='bottom')\
+                .find('span', class_='start-date').string
             self.courses.append(c)
-
-

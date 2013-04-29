@@ -9,6 +9,7 @@ from tastypie.utils import trailing_slash
 
 from opencollea.models import Course
 
+
 class LoginResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
@@ -32,7 +33,9 @@ class LoginResource(ModelResource):
     def login(self, request, **kwargs):
         self.method_check(request, allowed=['post'])
 
-        data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+        data = self.deserialize(request, request.raw_post_data,
+                                format=request.META.get('CONTENT_TYPE',
+                                                        'application/json'))
 
         username = data.get('username', '')
         password = data.get('password', '')
@@ -61,9 +64,10 @@ class LoginResource(ModelResource):
         self.method_check(request, allowed=['get'])
         if request.user and request.user.is_authenticated():
             logout(request)
-            return self.create_response(request, { 'success': True })
+            return self.create_response(request, {'success': True})
         else:
-            return self.create_response(request, { 'success': False }, HttpUnauthorized)
+            return self.create_response(request, {'success': False},
+                                        HttpUnauthorized)
 
     def current_user(self, request, **kwargs):
         user = {
@@ -71,6 +75,7 @@ class LoginResource(ModelResource):
             'username': request.user.username,
         }
         return self.create_response(request, user)
+
 
 class CourseResource(ModelResource):
     class Meta:
@@ -88,12 +93,14 @@ class CourseResource(ModelResource):
         from opencollea.models import Course
         self.method_check(request, allowed=['post'])
         required = []
-        data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+        data = self.deserialize(request, request.raw_post_data,
+                                format=request.META.get('CONTENT_TYPE',
+                                                        'application/json'))
 
         c = Course()
-        c.title = data.get('title', '') #required
+        c.title = data.get('title', '')  # required
         c.machine_readable_title = data.get('machine_readable_title', '')
-        c.description = data.get('description', '') #required
+        c.description = data.get('description', '')  # required
         c.website = data.get('website', '')
 
         if c.title == '':
@@ -109,7 +116,8 @@ class CourseResource(ModelResource):
         else:
             c.save()
 
-        #, machine_readable_title = d_machine_readable_title, description = d_description, website = d_website
+        #, machine_readable_title = d_machine_readable_title,
+        # description = d_description, website = d_website
         if c.pk > 0:
             return self.create_response(request, {
                 'success': True
