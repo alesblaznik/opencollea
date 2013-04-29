@@ -2,6 +2,7 @@ from find_courses.mooc.models import Mooc, Course
 from find_courses.mooc.utils import FetchError, ParseError
 from bs4 import BeautifulSoup
 
+
 class Udacity(Mooc):
     TITLE = 'Udacity'
     MOOC_URL = 'https://www.udacity.com'
@@ -24,4 +25,3 @@ class Udacity(Mooc):
                 course.find('div', class_='crs-li-tags-category').string
             )
             self.courses.append(c)
-

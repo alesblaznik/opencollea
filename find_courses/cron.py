@@ -3,8 +3,9 @@ from django_cron import CronJobBase, Schedule
 from find_courses import models
 from find_courses.mooc.models import Fetcher
 
+
 class ImportMoocCoursesCronJob(CronJobBase):
-    RUN_EVERY_MINS = 1440 # Every day
+    RUN_EVERY_MINS = 1440  # Every day
     #RUN_EVERY_MINS = 1
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
@@ -23,7 +24,6 @@ class ImportMoocCoursesCronJob(CronJobBase):
                         title=course.title,
                         source=unicode(provider.TITLE),
                         url=course.url)
-                    c.save() # ouch!!!
+                    c.save()  # ouch!!!
                 except:
                     pass
-

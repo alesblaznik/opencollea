@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.test import TestCase
 from opencollea.models import *
 
+
 class CourseTests(TestCase):
     def test_title_to_machine_readable_on_insert_with_no_machine_readable_defined(self):
         """
@@ -69,6 +70,7 @@ class TagTests(TestCase):
         tag1.save()
         self.assertRaises(IntegrityError, tag2.save)
 
+
 class ReferenceTypeTests(TestCase):
     def test_title_to_machine_readable_on_insert_with_no_machine_readable_defined(self):
         """
@@ -109,10 +111,9 @@ class ReferenceTypeTests(TestCase):
         self.assertRaises(IntegrityError, reference_type2.save)
 
 
-
 def pangram():
     return "  V ko-žu?ščku  hu*do$bne%ga fanta stopiclja mizar. "
 
+
 def pangram_slugified():
     return "v-ko-zuscku-hudobnega-fanta-stopiclja-mizar"
-

@@ -1,22 +1,28 @@
 from django.contrib import admin
 from opencollea.models import *
 
+
 class UserProfileAdmin(admin.ModelAdmin):
     fields = ['username', 'password', 'first_name', 'last_name',
               'email', 'avatar', 'website']
     list_display = ('username', 'first_name', 'last_name', 'email')
 
+
 class TagAdmin(admin.ModelAdmin):
     list_display = ('title', 'machine_readable_title')
+
 
 class ReferenceTypeAdmin(admin.ModelAdmin):
     list_display = ('title', 'machine_readable_title')
 
+
 class ReferenceAdmin(admin.ModelAdmin):
     list_display = ('title', 'course', 'user')
 
+
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('title', 'user')
+
 
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('content', 'question', 'user')
