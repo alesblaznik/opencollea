@@ -2,7 +2,7 @@
 var app = angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/', {controller: CourseListCtrl})
+            .when('/', {templateUrl: '/static/partials/course/course-list.html',controller: CourseListCtrl})
             .when('/course-list', {templateUrl: '/static/partials/course/course-list.html', controller: CourseListCtrl})
             .when('/course/:courseTitle', {templateUrl: 'static/partials/course/course-detail.html', controller: CourseDetailCtrl})
             .when('/profile/:username', {templateUrl: '/static/partials/profile/user-profile-class.html' })

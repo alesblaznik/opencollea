@@ -43,7 +43,6 @@ function CourseListCtrl($scope, Course) {
         // normalize to percentage
         for (var i = 0; i < courses.length; i++){
             var percent = Math.round(courses[i].value / sum * 100);
-            console.log(percent);
             courses[i].title += ' ' + percent + '%';
             courses[i].value = percent;
         }
