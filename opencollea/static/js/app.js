@@ -5,7 +5,7 @@ var app = angular.module('opencollea', ['opencolleaServices','http-auth-intercep
             .when('/', {controller: OpenColleaCtrl})
             .when('/courses', {templateUrl: '/templates/courses.html', controller: OpenColleaCtrl})
             .when('/profile/:username', {templateUrl: '/static/partials/profile/user-profile-class.html' })
-            .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html'})
+            .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html', controller: 'UserProfileEditCtrl'})
             .when('/auth/:username/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html'})
             .otherwise({redirectTo: '/'});
     }]);
@@ -14,5 +14,5 @@ var app = angular.module('opencollea', ['opencolleaServices','http-auth-intercep
  * Inicializacija
  */
 app.run(function($rootScope, Auth) {
-    $rootScope.user = Auth.getCurrentUser();
+    $rootScope.currentUser = Auth.getCurrentUser();
 });
