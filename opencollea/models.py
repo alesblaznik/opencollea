@@ -24,7 +24,7 @@ class Course(models.Model):
 
 class UserProfile(User):
     timezone = models.CharField(max_length=40, default='Europe/Ljubljana')
-    language_code = models.ForeignKey(code_register.models.Language)
+    language_code = models.ForeignKey(code_register.models.Language, blank=True, null=True)
     is_language_code_public = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user_profile/avatar')
     courses_enrolled = models.ManyToManyField(Course)
@@ -33,13 +33,13 @@ class UserProfile(User):
     is_lives_in_public = models.BooleanField(default=False)
     biography = models.TextField()
     is_biography_public = models.BooleanField(default=False)
-    age_range = models.ForeignKey(code_register.models.AgeRange)
+    age_range = models.ForeignKey(code_register.models.AgeRange, blank=True, null=True)
     is_age_range_public = models.BooleanField(default=False)
-    gender = models.ForeignKey(code_register.models.Gender)
+    gender = models.ForeignKey(code_register.models.Gender, blank=True, null=True)
     is_gender_public = models.BooleanField(default=False)
-    occupation = models.ForeignKey(code_register.models.Occupation)
+    occupation = models.ForeignKey(code_register.models.Occupation, blank=True, null=True)
     is_occupation_public = models.BooleanField(default=False)
-    area_of_study = models.ForeignKey(code_register.models.AreaOfStudy)
+    area_of_study = models.ForeignKey(code_register.models.AreaOfStudy, blank=True, null=True)
     is_area_of_study_public = models.BooleanField(default=False)
 
 class Tag(models.Model):
