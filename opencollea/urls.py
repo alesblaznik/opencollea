@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 
 from tastypie.api import Api
 import code_register
-from opencollea.resources import LoginResource
+from opencollea.resources import LoginResource, UserProfileResource
 from opencollea import settings
 
 import code_register.resources
@@ -15,6 +15,7 @@ admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(LoginResource())
+v1_api.register(UserProfileResource())
 
 # code_register's API resources
 v1_api.register(code_register.resources.GenderResource())
