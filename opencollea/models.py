@@ -24,9 +24,19 @@ class Course(models.Model):
 class UserProfile(User):
     timezone = models.CharField(max_length=40, default='Europe/Ljubljana')
     language_code = models.CharField(max_length=5, default='en-us')
+    is_language_code_public = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user_profile/avatar')
     courses_enrolled = models.ManyToManyField(Course)
     website = models.URLField(blank=True)
+    lives_in = models.CharField(max_length=128)
+    is_lives_in_public = models.BooleanField(default=False)
+    biography = models.TextField()
+    is_biography_public = models.BooleanField(default=False)
+    age_range = models.PositiveIntegerField()
+    is_age_range_public = models.BooleanField(default=False)
+    gender = models.CharField(max_length=40)
+    is_gender_public = models.BooleanField(default=False)
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=20)
