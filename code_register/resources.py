@@ -1,7 +1,5 @@
-from django.shortcuts import _get_queryset
 from code_register.models import Gender, Language, AgeRange, Occupation, \
     AreaOfStudy
-
 from tastypie.resources import ModelResource
 
 
