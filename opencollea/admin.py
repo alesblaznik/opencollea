@@ -3,7 +3,7 @@ from opencollea.models import *
 
 class UserProfileAdmin(admin.ModelAdmin):
     fields = ['username', 'password', 'first_name', 'last_name',
-              'email', 'avatar', 'website']
+              'email']
     list_display = ('username', 'first_name', 'last_name', 'email')
 
 class TagAdmin(admin.ModelAdmin):
