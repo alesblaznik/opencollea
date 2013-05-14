@@ -53,6 +53,7 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Attachment(models.Model):
     title = models.CharField(max_length=50)
     user = models.ForeignKey(UserProfile)
@@ -62,6 +63,7 @@ class Attachment(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class ReferenceType(models.Model):
     title = models.CharField(max_length=20)
@@ -91,6 +93,7 @@ class Reference(models.Model):
     note = models.TextField()
     published = models.DateField()
     link = models.URLField()
+
 
 class Question(models.Model):
     user = models.ForeignKey(UserProfile)
