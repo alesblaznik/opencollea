@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Gender(models.Model):
     title = models.CharField(max_length=40)
     machine_readable_title = models.SlugField(max_length=12, unique=True)
@@ -15,6 +16,7 @@ class Language(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class AgeRange(models.Model):
     min = models.PositiveIntegerField()
     max = models.PositiveIntegerField()
@@ -22,13 +24,15 @@ class AgeRange(models.Model):
     def __unicode__(self):
         return "%d-%d" % (self.min, self.max)
 
+
 class Occupation(models.Model):
     title = models.CharField(max_length=40)
 
     def __unicode__(self):
         return self.title
 
-class AreasOfStudy(models.Model):
+
+class AreaOfStudy(models.Model):
     title = models.CharField(max_length=40)
 
     def __unicode__(self):
