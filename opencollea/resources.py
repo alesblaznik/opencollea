@@ -1,13 +1,15 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import request, request
+from django.shortcuts import _get_queryset
 from tastypie.authentication import SessionAuthentication
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
 
-from opencollea.models import Course
+from opencollea.models import Course, UserProfile
+
 
 class LoginResource(ModelResource):
     class Meta:
@@ -72,7 +74,14 @@ class LoginResource(ModelResource):
         }
         return self.create_response(request, user)
 
+
 class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
+
+
+class UserProfileResource(ModelResource):
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'user_profile'
