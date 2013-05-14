@@ -7,9 +7,11 @@ from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
+from tastypie import fields
 
 from opencollea.models import Course, UserProfile
 
+import code_register.resources
 
 class LoginResource(ModelResource):
     class Meta:
@@ -82,6 +84,13 @@ class CourseResource(ModelResource):
 
 
 class UserProfileResource(ModelResource):
+    language_code = fields.ForeignKey(code_register.resources.LanguageResource, 'language_code', null=True)
+    age_range = fields.ForeignKey(code_register.resources.AgeRangeResource, 'age_range', null=True)
+    gender = fields.ForeignKey(code_register.resources.GenderResource, 'gender', null=True)
+    occupation = fields.ForeignKey(code_register.resources.OccupationResource, 'occupation', null=True)
+    area_of_study = fields.ForeignKey(code_register.resources.AreaOfStudyResource, 'area_of_study', null=True)
+
+
     class Meta:
         queryset = UserProfile.objects.all()
         resource_name = 'user_profile'
