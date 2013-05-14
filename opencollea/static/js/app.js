@@ -1,5 +1,5 @@
 
-var app = angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
+var app = angular.module('opencollea', ['opencolleaServices','http-auth-interceptor']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {controller: OpenColleaCtrl})
