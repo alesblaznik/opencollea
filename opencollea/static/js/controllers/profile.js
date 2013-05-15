@@ -1,5 +1,5 @@
-app.controller('UserProfileEditCtrl', ['$scope', '$rootScope', 'UserProfile', 'Gender', 'Language', 'AgeRange', 'Occupation', 'AreaOfStudy',
-    function($scope, $rootScope, UserProfile, Gender, Language, AgeRange, Occupation, AreaOfStudy) {
+app.controller('UserProfileEditCtrl', ['$scope', '$rootScope', '$window', 'UserProfile', 'Gender', 'Language', 'AgeRange', 'Occupation', 'AreaOfStudy',
+    function($scope, $rootScope, $window, UserProfile, Gender, Language, AgeRange, Occupation, AreaOfStudy) {
         $scope.errors = { user_profile: null };
 
         // Load UserProfile
@@ -24,6 +24,11 @@ app.controller('UserProfileEditCtrl', ['$scope', '$rootScope', 'UserProfile', 'G
                       content: 'Your profile was successfuly saved.'
                     }];
                     window.scrollTo(0,0);
+
+                    // Redirect back
+                    if ($scope.redirectBack) {
+                        $window.history.back()
+                    }
                 },
                 // Failed
                 function(response) {
