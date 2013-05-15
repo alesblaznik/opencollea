@@ -97,5 +97,6 @@ class UserProfileResource(ModelResource):
     class Meta:
         queryset = UserProfile.objects.all()
         resource_name = 'user_profile'
+        excludes = ['courses_enrolled', 'date_joined', 'last_login']
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
