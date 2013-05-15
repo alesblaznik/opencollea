@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+import code_register.models
 
 class Course(models.Model):
     title = models.CharField(max_length=50)
@@ -23,10 +24,23 @@ class Course(models.Model):
 
 class UserProfile(User):
     timezone = models.CharField(max_length=40, default='Europe/Ljubljana')
-    language_code = models.CharField(max_length=5, default='en-us')
+    language_code = models.ForeignKey(code_register.models.Language, blank=True, null=True)
+    is_language_code_public = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user_profile/avatar')
     courses_enrolled = models.ManyToManyField(Course)
     website = models.URLField(blank=True)
+    lives_in = models.CharField(max_length=128)
+    is_lives_in_public = models.BooleanField(default=False)
+    biography = models.TextField()
+    is_biography_public = models.BooleanField(default=False)
+    age_range = models.ForeignKey(code_register.models.AgeRange, blank=True, null=True)
+    is_age_range_public = models.BooleanField(default=False)
+    gender = models.ForeignKey(code_register.models.Gender, blank=True, null=True)
+    is_gender_public = models.BooleanField(default=False)
+    occupation = models.ForeignKey(code_register.models.Occupation, blank=True, null=True)
+    is_occupation_public = models.BooleanField(default=False)
+    area_of_study = models.ForeignKey(code_register.models.AreaOfStudy, blank=True, null=True)
+    is_area_of_study_public = models.BooleanField(default=False)
 
 
 class Tag(models.Model):

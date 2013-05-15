@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'opencollea',
     #    'portal',
     'find_courses',
+    'code_register',
     'tastypie',
 )
 

@@ -1,13 +1,20 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import request, request
+from django.shortcuts import _get_queryset
 from tastypie.authentication import SessionAuthentication
+from tastypie.authorization import Authorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
+from fixes.tastypie.validation import ModelCleanedDataFormValidation
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
+from tastypie import fields
 
-from opencollea.models import Course
+from opencollea.models import Course, UserProfile
+from opencollea.forms import UserProfileForm
+
+import code_register.resources
 
 
 class LoginResource(ModelResource):
@@ -126,3 +133,18 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
+
+class UserProfileResource(ModelResource):
+    language_code = fields.ForeignKey(code_register.resources.LanguageResource, 'language_code', null=True)
+    age_range = fields.ForeignKey(code_register.resources.AgeRangeResource, 'age_range', null=True)
+    gender = fields.ForeignKey(code_register.resources.GenderResource, 'gender', null=True)
+    occupation = fields.ForeignKey(code_register.resources.OccupationResource, 'occupation', null=True)
+    area_of_study = fields.ForeignKey(code_register.resources.AreaOfStudyResource, 'area_of_study', null=True)
+
+
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'user_profile'
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
+
