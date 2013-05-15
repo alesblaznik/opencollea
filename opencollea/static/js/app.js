@@ -1,12 +1,12 @@
 
-var app = angular.module('opencollea', ['openColleaServices','http-auth-interceptor']).
+var app = angular.module('opencollea', ['opencolleaServices','http-auth-interceptor']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {templateUrl: '/static/partials/course/course-list.html',controller: CourseListCtrl})
             .when('/course-list', {templateUrl: '/static/partials/course/course-list.html', controller: CourseListCtrl})
             .when('/course/:courseTitle', {templateUrl: 'static/partials/course/course-detail.html', controller: CourseDetailCtrl})
             .when('/profile/:username', {templateUrl: '/static/partials/profile/user-profile-class.html' })
-            .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html'})
+            .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html', controller: 'UserProfileEditCtrl'})
             .when('/auth/:username/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html'})
             .when('/new-course', {templateUrl: '/static/partials/course/new-course.html', controller: CourseCtrl})
             .otherwise({redirectTo: '/'});
@@ -16,5 +16,5 @@ var app = angular.module('opencollea', ['openColleaServices','http-auth-intercep
  * Inicializacija
  */
 app.run(function($rootScope, Auth) {
-    $rootScope.user = Auth.getCurrentUser();
+    $rootScope.currentUser = Auth.getCurrentUser();
 });

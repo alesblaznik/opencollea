@@ -20,13 +20,13 @@
 
       <li class="nav-header">OpenCollea</li>
       <li>
-        <a href="#/profile/{{user.username}}/edit">
+        <a href="#/profile/{{currentUser.username}}/edit">
           <i class="icon-star"></i>
           Personal Profile
         </a>
       </li>
       <li>
-        <a href="#/auth/{{user.username}}/edit">
+        <a href="#/auth/{{currentUser.username}}/edit">
           <i class="icon-list"></i>
           Classes
           <div class="badge pull-right">2</div>
@@ -47,7 +47,7 @@
 <div class="span9">
   <h2>Full Name</h2>
 
-  <a href="#/profile/{{user.username}}/edit" class="btn pull-right">
+  <a href="#/profile/{{currentUser.username}}/edit" class="btn pull-right">
     <i class="icon-edit"></i>
     Edit Profile
   </a>
