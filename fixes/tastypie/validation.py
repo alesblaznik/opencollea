@@ -32,7 +32,7 @@ class ModelCleanedDataFormValidation(CleanedDataFormValidation):
                 # hopefully /api/v1/<resource_name>/<pk>
                 # Zaradi AngularJS ne uporabljamo trailing slasha!!!
                 # -2 za trailing slash
-                converted.append(int(one_uri.split('/')[-1])
+                converted.append(int(one_uri.split('/')[-1]))
             except (IndexError, ValueError):
                 raise ValueError(
                     "URI %s could not be converted to PK integer." % one_uri)
