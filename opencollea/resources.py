@@ -6,11 +6,13 @@ from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import Authorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
+from tastypie.validation import FormValidation
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields
 
 from opencollea.models import Course, UserProfile
+from opencollea.forms import UserProfileForm
 
 import code_register.resources
 
@@ -96,3 +98,4 @@ class UserProfileResource(ModelResource):
         queryset = UserProfile.objects.all()
         resource_name = 'user_profile'
         authorization = Authorization()
+        validation = FormValidation(form_class=UserProfileForm)
