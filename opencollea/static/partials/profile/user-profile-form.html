@@ -40,6 +40,10 @@
       <input ng-model="user_profile.is_lives_in_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
+    <!-- Website -->
+    <label>Your website's URL.</label>
+    <input ng-model="user_profile.website" type="url" placeholder="http://">
+
     <!-- Native language -->
     <label>What is your primary language?</label>
     <select ng-model="user_profile.language_code" ng-options="l.resource_uri as l.title for l in language_options.objects"></select>
