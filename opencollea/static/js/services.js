@@ -9,5 +9,3 @@ angular.module('opencolleaServices', ['ngResource'])
             query: {method: 'GET', isArray: false}
         });
     });
-
-

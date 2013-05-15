@@ -1,0 +1,12 @@
+<div class="row-fluid">
+    <h4>Add a new course</h4>
+    <!-- tu naj se kar zgradi forma na podlagi Course modela -->
+    <form ng-submit="newCourse()" id="newCourseForm">
+        <input type="text" ng-model="title"  size="30" placeholder="Title">
+        <br><input type="text" ng-model="machine_readable_title"  size="30" placeholder="Short title">
+        <br><input type="text" ng-model="description"  size="30" placeholder="Description">
+        <br><input type="text" ng-model="website"  size="30" placeholder="Website">
+        <div class="msgDiv"></div>
+        <br><input class="btn-primary" type="submit" value="Add a new course">
+    </form>
+</div>

@@ -42,14 +42,18 @@ Raphael.fn.pieChart = function (cx, cy, r, values, labels, stroke) {
     }
     return chart;
 };
-$(function () {
+function globalInitPie(vals){
     var values = [], labels = [];
-    $("#coursesList li").each(function () {
+    for (var i = 0; i < vals.length; i++){
+        labels.push(vals[i].title);
+        values.push(vals[i].value);
+    }
+    /*$("#coursesList li").each(function () {
         values.push(parseInt($("span:eq(1)", this).text(), 10));
-        labels.push($("span:eq(0)", this).text() + ' ' + $("span:eq(1)", this).text());
-    });
+        labels.push($("span:eq(0)", this).text() + ' ' + ("span:eq(1)", this).text());
+    });*/
     //$("#coursesList").hide();
     if (values.length > 0 && values.length == labels.length) {
         Raphael("holder", 700, 700).pieChart(350, 350, 200, values, labels, "#fff");
     }
-});
+}

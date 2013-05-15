@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 
 from tastypie.api import Api
 import code_register
-from opencollea.resources import LoginResource, UserProfileResource
+from opencollea.resources import LoginResource, CourseResource, UserProfileResource
 from opencollea import settings
 
 import code_register.resources
@@ -15,6 +15,7 @@ admin.autodiscover()
 
 v1_api = Api(api_name='v1')
 v1_api.register(LoginResource())
+v1_api.register(CourseResource())
 v1_api.register(UserProfileResource())
 
 # code_register's API resources
@@ -24,32 +25,33 @@ v1_api.register(code_register.resources.AgeRangeResource())
 v1_api.register(code_register.resources.OccupationResource())
 v1_api.register(code_register.resources.AreaOfStudyResource())
 
-urlpatterns = patterns('',
-    # API
-    url(r'^api/', include(v1_api.urls)),
+urlpatterns = \
+    patterns('',
+             #  API
+             url(r'^api/', include(v1_api.urls)),
+             #  Login / logout.
+             url(r'^login/$', 'opencollea.views.login', name='login'),
+             url(r'^logout/$', 'django.contrib.auth.views.logout',
+                 name='logout'),
 
-    # Login / logout.
-    url(r'^login/$', 'opencollea.views.login', name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+             url(r'^$', "opencollea.views.home", name='home'),
+             url(r'^courses', "opencollea.views.courses", name='courses'),
+             url(r'^users', "opencollea.views.users", name='users'),
+             url(r'^forums', "opencollea.views.forums", name='forums'),
 
-    url(r'^$', "opencollea.views.home", name='home'),
-    url(r'^courses', "opencollea.views.courses", name='courses'),
-    url(r'^users', "opencollea.views.users", name='users'),
-    url(r'^forums', "opencollea.views.forums", name='forums'),
+             # Examples:
+             # url(r'^$', 'opencollea.views.home', name='home'),
+             # url(r'^opencollea/', include('opencollea.foo.urls')),
 
-    # Examples:
-    # url(r'^$', 'opencollea.views.home', name='home'),
-    # url(r'^opencollea/', include('opencollea.foo.urls')),
+             # Uncomment the admin/doc line below to enable admin document.:
+             # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+             # Uncomment the next line to enable the admin:
+             url(r'^admin/', include(admin.site.urls)),
 
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
-
-    # List of Mooc Courses
-    url(r'^find_courses/', include('find_courses.urls',
-                                   namespace='find_courses')),
+             # List of Mooc Courses
+             url(r'^find_courses/', include('find_courses.urls',
+                                            namespace='find_courses')),
 
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+             ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

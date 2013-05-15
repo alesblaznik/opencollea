@@ -7,7 +7,8 @@ class Coursera(Mooc):
     MOOC_URL = 'https://www.coursera.org'
     COURSES_LIST_URL = 'https://www.coursera.org/courses'
 
-    COURSES_LIST_JSON = 'https://www.coursera.org/maestro/api/topic/list?full=1'
+    COURSES_LIST_JSON = \
+        'https://www.coursera.org/maestro/api/topic/list?full=1'
 
     def __init__(self):
         super(Coursera, self).__init__(self.TITLE)
@@ -31,6 +32,3 @@ class Coursera(Mooc):
                 course['instructor']
             )
             self.courses.append(c)
-
-
-

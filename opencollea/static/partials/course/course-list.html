@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+        <form class="form-search">
+            <div class="input-append">
+                <input ng-model="query" type="text" class="span10 search-query" placeholder="Search courses">
+                <button type="submit" class="btn">Search</button>
+            </div>
+        </form>
+
+
+    </div>
+    <div class="span9">
+      <!--Body content-->
+
+      <ul class="courses doubleList" id="coursesList">
+        <li ng-repeat="course in courses.objects | filter:query">
+            <a href="#/course/{{ course.machine_readable_title }}"><strong>{{ course.title }}</strong> </a>
+            <span class="rightFloater"><a href="#">Enroll me</a></span>
+
+        </li>
+      </ul>
+
+    </div>
+    <div id="holder" class="pieContainer"></div>
+  </div>
+</div>
