@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import request, request
 from django.shortcuts import _get_queryset
 from tastypie.authentication import SessionAuthentication
+from tastypie.authorization import Authorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
 from django.conf.urls import url
@@ -94,3 +95,4 @@ class UserProfileResource(ModelResource):
     class Meta:
         queryset = UserProfile.objects.all()
         resource_name = 'user_profile'
+        authorization = Authorization()
