@@ -11,6 +11,9 @@ app.controller('UserProfileEditCtrl', ['$scope', 'UserProfile', 'Gender', 'Langu
         $scope.area_of_study_options = AreaOfStudy.query();
 
         $scope.saveProfile = function() {
-            $scope.user_profile.$update({userId: $scope.currentUser.id});
+            $scope.loading = true;
+            $scope.user_profile.$update({userId: $scope.currentUser.id}, function() {
+                $scope.loading = false;
+            });
         }
 }]);
