@@ -31,79 +31,53 @@
 
 <div class="span9">
   <h2>Profile Details</h2>
-  <form>
+  <form ng-controller="UserProfileEditCtrl" ng-submit="saveProfile()">
 
     <!-- Location -->
     <label>Where do you live?</label>
-    <input type="text" placeholder="Enter city, state, country">
+    <input ng-model="user_profile.lives_in" type="text" placeholder="Enter city, state, country">
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_lives_in_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <!-- Native language -->
     <label>What is your primary language?</label>
-    <select>
-      <option>Slovenia</option>
-    </select>
+    <select ng-model="user_profile.language_code" ng-options="l.resource_uri as l.title for l in language_options.objects"></select>
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_language_code_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <!-- Age -->
     <label>Please select your age range.</label>
-    <select>
-      <option>21-25</option>
-    </select>
+    <select ng-model="user_profile.age_range" ng-options="ar.resource_uri as ar.min + ' - ' + ar.max for ar in age_range_options.objects | orderBy: 'min'"></select>
     <span class="help-block">This information will not be shared on your profile.</span>
 
     <!-- Gender -->
     <label>Please select your gender.</label>
-    <select>
-      <option>-- select one --</option>
-      <option>Female</option>
-      <option>Male</option>
-    </select>
+    <select ng-model="user_profile.gender" ng-options="g.resource_uri as g.title for g in gender_options.objects"></select>
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_gender_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <!-- Biography -->
     <label>Biography</label>
-    <textarea rows="5"></textarea>
+    <textarea ng-model="user_profile.biography" rows="5"></textarea>
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_biography_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <!-- Status -->
     <label>Current Status</label>
-    <select>
-      <option>-- select one --</option>
-      <option>High School Student</option>
-      <option>Undergrad Student</option>
-      <option>Graduate School Student</option>
-      <option>Not a Student</option>
-    </select>
+    <select ng-model="user_profile.occupation" ng-options="o.resource_uri as o.title for o in occupation_options.objects"></select>
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_occupation_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <!-- Area of Study -->
     <label>Area of Study</label>
-    <select>
-      <option>-- select one --</option>
-      <option>Humanities</option>
-      <option>Social Sciences</option>
-      <option>Natural Sciences</option>
-      <option>Computer Science and Engineering</option>
-      <option>Business and Economics</option>
-      <option>Design and Architecture</option>
-      <option>Sports and Recreation</option>
-      <option>Education</option>
-      <option>Law</option>
-      <option>Medicine</option>
-    </select>
+    <select ng-model="user_profile.area_of_study" ng-options="aos.resource_uri as aos.title for aos in area_of_study_options.objects | orderBy: 'title'"></select>
     <label class="checkbox">
-      <input type="checkbox"> Check this box to share this on your profile.
+      <input ng-model="user_profile.is_area_of_study_public" type="checkbox"> Check this box to share this on your profile.
     </label>
 
     <div class="form-actions">
