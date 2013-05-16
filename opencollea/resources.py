@@ -24,7 +24,7 @@ class LoginResource(ModelResource):
         excludes = ['email', 'password', 'is_superuser']
         #authentication = SessionAuthentication()
 
-    def override_urls(self):
+    def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/login%s$" %
                 (self._meta.resource_name, trailing_slash()),
@@ -89,7 +89,7 @@ class CourseResource(ModelResource):
         queryset = Course.objects.all()
         resource_name = 'course'
 
-    def override_urls(self):
+    def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/new%s$" %
                 (self._meta.resource_name, trailing_slash()),
@@ -134,6 +134,7 @@ class CourseResource(ModelResource):
                 'error': 'Entry not successful'
             })
 
+
 class UserProfileResource(ModelResource):
     language_code = fields.ForeignKey(code_register.resources.LanguageResource, 'language_code', null=True)
     age_range = fields.ForeignKey(code_register.resources.AgeRangeResource, 'age_range', null=True)
@@ -150,4 +151,3 @@ class UserProfileResource(ModelResource):
         excludes = ['password']
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
-
