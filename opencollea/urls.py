@@ -3,7 +3,8 @@ from django.conf.urls.static import static
 
 from tastypie.api import Api
 import code_register
-from opencollea.resources import LoginResource, CourseResource, UserProfileResource
+from opencollea.resources import \
+    LoginResource, CourseResource, UserProfileResource
 from opencollea import settings
 
 import code_register.resources
