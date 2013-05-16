@@ -5,7 +5,7 @@ from django.shortcuts import _get_queryset
 from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import Authorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
@@ -141,10 +141,12 @@ class UserProfileResource(ModelResource):
     occupation = fields.ForeignKey(code_register.resources.OccupationResource, 'occupation', null=True)
     area_of_study = fields.ForeignKey(code_register.resources.AreaOfStudyResource, 'area_of_study', null=True)
 
-
     class Meta:
         queryset = UserProfile.objects.all()
         resource_name = 'user_profile'
+        filtering = {
+            'username': ALL,
+        }
         excludes = ['courses_enrolled', 'date_joined', 'last_login']
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
