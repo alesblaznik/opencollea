@@ -5,7 +5,7 @@ from opencollea.models import *
 
 
 class CourseTests(TestCase):
-    def test_title_to_machine_readable_on_insert_with_no_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_no_machine_readable_defined(self):
         """
         Pri vnosu novega tečaja se mora naslov tečaja pretvorit
         v strojno berljiv format - v primeru, da ga uporabnik ni sam vnesel.
@@ -14,7 +14,7 @@ class CourseTests(TestCase):
         course.save()
         self.assertEqual(course.machine_readable_title, pangram_slugified())
 
-    def test_title_to_machine_readable_on_insert_with_valid_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_valid_machine_readable_defined(self):
         """
         Pri vnosu novega tečaja lahko uporabnik sam vpiše strojno ime
         za tečaj.
@@ -38,7 +38,7 @@ class CourseTests(TestCase):
 
 
 class TagTests(TestCase):
-    def test_title_to_machine_readable_on_insert_with_no_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_no_machine_readable_defined(self):
         """
         Pri vnosu novega taga se mora naziv preslikati v strojno berljiv
         format - v primeru, da ga uporabnik in sam navedel.
@@ -49,7 +49,7 @@ class TagTests(TestCase):
         tag.save()
         self.assertEqual(tag.machine_readable_title, machine_readable_title)
 
-    def test_title_to_machine_readable_on_insert_with_valid_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_valid_machine_readable_defined(self):
         """
         Pri vnosu novega taga lahko uporabnik sam vnese poljubno
         veljavno strojno ime.
@@ -72,7 +72,7 @@ class TagTests(TestCase):
 
 
 class ReferenceTypeTests(TestCase):
-    def test_title_to_machine_readable_on_insert_with_no_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_no_machine_readable_defined(self):
         """
         Pri vnosu novega tipa reference se mora avtomatično zgenerirati
         strojno ime za vrednost vzeto iz title - v primeru, da je uporabnik ne
@@ -84,7 +84,7 @@ class ReferenceTypeTests(TestCase):
         self.assertEqual(reference_type.machine_readable_title,
                          pangram_slugified())
 
-    def test_title_to_machine_readable_on_insert_with_valid_machine_readable_defined(self):
+    def tst_title_to_mr_on_ins_wth_valid_machine_readable_defined(self):
         """
         Pri vnosu novega tipa reference lahko uporabnik vnese poljubno
         strojno ime za referenco.
