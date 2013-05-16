@@ -34,59 +34,86 @@
   <form ng-controller="UserProfileEditCtrl" ng-submit="saveProfile()">
 
     <!-- Location -->
-    <label>Where do you live?</label>
-    <input ng-model="user_profile.lives_in" type="text" placeholder="Enter city, state, country">
-    <label class="checkbox">
-      <input ng-model="user_profile.is_lives_in_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.lives_in}">
+      <label class="control-label">Where do you live?</label>
+      <input ng-model="user_profile.lives_in" type="text" placeholder="Enter city, state, country">
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.lives_in">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_lives_in_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
+
 
     <!-- Website -->
-    <label>Your website's URL.</label>
-    <input ng-model="user_profile.website" type="url" placeholder="http://">
+    <div class="control-group" ng-class="{error: errors.user_profile.website}">
+      <label class="control-label">Your website's URL.</label>
+      <input ng-model="user_profile.website" type="text" placeholder="http://">
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.website">{{ error_msg }}</span>
+    </div>
 
     <!-- Native language -->
-    <label>What is your primary language?</label>
-    <select ng-model="user_profile.language_code" ng-options="l.resource_uri as l.title for l in language_options.objects"></select>
-    <label class="checkbox">
-      <input ng-model="user_profile.is_language_code_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.language_code}">
+      <label class="control-label">What is your primary language?</label>
+      <select ng-model="user_profile.language_code" ng-options="l.resource_uri as l.title for l in language_options.objects"></select>
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.language_code">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_language_code_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
+
 
     <!-- Age -->
-    <label>Please select your age range.</label>
-    <select ng-model="user_profile.age_range" ng-options="ar.resource_uri as ar.min + ' - ' + ar.max for ar in age_range_options.objects | orderBy: 'min'"></select>
-    <span class="help-block">This information will not be shared on your profile.</span>
+    <div class="control-group" ng-class="{error: errors.user_profile.age_range}">
+      <label class="control-label">Please select your age range.</label>
+      <select ng-model="user_profile.age_range" ng-options="ar.resource_uri as ar.min + ' - ' + ar.max for ar in age_range_options.objects | orderBy: 'min'"></select>
+      <span class="help-inline" ng-repeat="errror_msg in errors.user_profile.age_range">{{ error_msg }}</span>
+      <span class="help-block">This information will not be shared on your profile.</span>
+    </div>
 
     <!-- Gender -->
-    <label>Please select your gender.</label>
-    <select ng-model="user_profile.gender" ng-options="g.resource_uri as g.title for g in gender_options.objects"></select>
-    <label class="checkbox">
-      <input ng-model="user_profile.is_gender_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.gender}">
+      <label class="control-label">Please select your gender.</label>
+      <select ng-model="user_profile.gender" ng-options="g.resource_uri as g.title for g in gender_options.objects"></select>
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.gender">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_gender_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
 
     <!-- Biography -->
-    <label>Biography</label>
-    <textarea ng-model="user_profile.biography" rows="5"></textarea>
-    <label class="checkbox">
-      <input ng-model="user_profile.is_biography_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.biography}">
+      <label class="control-label">Biography</label>
+      <textarea ng-model="user_profile.biography" rows="5"></textarea>
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.biography">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_biography_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
 
     <!-- Status -->
-    <label>Current Status</label>
-    <select ng-model="user_profile.occupation" ng-options="o.resource_uri as o.title for o in occupation_options.objects"></select>
-    <label class="checkbox">
-      <input ng-model="user_profile.is_occupation_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.occupation}">
+      <label class="control-label">Current Status</label>
+      <select ng-model="user_profile.occupation" ng-options="o.resource_uri as o.title for o in occupation_options.objects"></select>
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.occupation">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_occupation_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
 
     <!-- Area of Study -->
-    <label>Area of Study</label>
-    <select ng-model="user_profile.area_of_study" ng-options="aos.resource_uri as aos.title for aos in area_of_study_options.objects | orderBy: 'title'"></select>
-    <label class="checkbox">
-      <input ng-model="user_profile.is_area_of_study_public" type="checkbox"> Check this box to share this on your profile.
-    </label>
+    <div class="control-group" ng-class="{error: errors.user_profile.area_of_study}">
+      <label class="control-label">Area of Study</label>
+      <select ng-model="user_profile.area_of_study" ng-options="aos.resource_uri as aos.title for aos in area_of_study_options.objects | orderBy: 'title'"></select>
+      <span class="help-inline" ng-repeat="error_msg in errors.user_profile.area_of_study">{{ error_msg }}</span>
+      <label class="checkbox">
+        <input ng-model="user_profile.is_area_of_study_public" type="checkbox"> Check this box to share this on your profile.
+      </label>
+    </div>
+
 
     <div class="form-actions">
-      <button form-save-button-loading="Saving..." type="submit" class="btn btn-primary">Save</button>
-      <button form-save-button-loading="Saving..." type="submit" class="btn">Save &amp; Continue</button>
+      <button form-save-button-loading="Saving..." type="submit" ng-click="redirectBack=true" class="btn btn-primary">Save</button>
+      <button form-save-button-loading="Saving..." type="submit" ng-click="redirectBack=false" class="btn">Save &amp; Continue</button>
     </div>
 
 
