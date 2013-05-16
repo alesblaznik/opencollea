@@ -81,7 +81,7 @@
       <div ng-repeat="n in notifications">
           <div class="alert {% templatetag openvariable %} n.class {% templatetag closevariable %}">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
-              {% templatetag openvariable %}  n.content {% templatetag closevariable %}
+              <div ng-bind-html-unsafe="n.content"></div>
           </div>
       </div>
 
