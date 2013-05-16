@@ -44,10 +44,10 @@
 
 </div>
 
-<div class="span9">
-  <h2>Full Name</h2>
+<div class="span9" ng-controller="UserClassProfileCtrl">
+  <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
 
-  <a href="#/profile/{{currentUser.username}}/edit" class="btn pull-right">
+  <a href="#/profile/{{currentUser.username}}/edit" class="btn pull-right" ng-show="user_profile.id == currentUser.id">
     <i class="icon-edit"></i>
     Edit Profile
   </a>
@@ -56,20 +56,18 @@
   <i class="icon-certificate"></i> Contribution <div class="progress progress-danger"><div class="bar" style="width:10%"></div></div>
 
   <i class="icon-road"></i>
-    On OpenCollea since <span class="label">about 1 month</span> ago,
-    last activity <span class="label">less than a minute</span> ago.
+    On OpenCollea since <span class="label">{{ user_profile.date_joined | date:'dd.MM.yyyy @ HH:mm' }}</span>,
+    last activity <span class="label">{{ user_profile.last_login | date:'dd.MM.yyyy @ HH:mm' }}</span>.
 
   <i class="icon-map-marker"></i>
-    Lives in <span class="label">Ljubljana, Slovenia</span>
-    <i class="icon-headphones"></i> Speaks <span class="label">Slovenian</span>
+    Lives in <span class="label" ng-bind="user_profile.lives_in"></span>
+    <i class="icon-headphones"></i> Speaks <span class="label" ng-bind="user_profile.language_code.title"></span>
 
   <hr>
 
   <h3>Biography</h3>
   <blockquote>
-    <p>
-      I was born on a warm, sunny day in June (Date) in (Place of Birth), (Country). I still live in (Place of Birth), (Country), and I go to school at Booker High School. I live with my mom, Kate; my brother, Jake; and my Aunt Molly. When I was born, my bother was fifteen-months-old and hid under the table from me. Jake is a sweet kid and he would do anything for me, but like all brothers and sisters we fight like cats and dogs. Sometimes when no one was around, Jake would come up to me and bite my toes for no reason. I still love him but only because he is my brother.
-    </p>
+    <p ng-bind="user_profile.biography"></p>
   </blockquote>
 
   <hr>
