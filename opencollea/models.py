@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 
 import code_register.models
 
+
 class Course(models.Model):
     title = models.CharField(max_length=50)
     machine_readable_title = models.SlugField(max_length=50, unique=True,
