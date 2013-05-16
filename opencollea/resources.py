@@ -147,7 +147,7 @@ class UserProfileResource(ModelResource):
         filtering = {
             'username': ALL,
         }
-        excludes = ['courses_enrolled', 'date_joined', 'last_login']
+        excludes = ['password']
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
 
