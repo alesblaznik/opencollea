@@ -8,7 +8,7 @@ from tastypie.utils import trailing_slash
 from tastypie import fields
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
-from opencollea.models import Course, UserProfile
+from opencollea.models import Course, UserProfile, Question
 from opencollea.forms import UserProfileForm
 import code_register.resources
 
@@ -80,6 +80,39 @@ class LoginResource(ModelResource):
         return self.create_response(request, user)
 
 
+class UserProfileResource(ModelResource):
+    language_code = fields.ForeignKey(
+        code_register.resources.LanguageResource, 'language_code', null=True)
+    age_range = fields.ForeignKey(
+        code_register.resources.AgeRangeResource, 'age_range', null=True)
+    gender = fields.ForeignKey(
+        code_register.resources.GenderResource, 'gender', null=True)
+    occupation = fields.ForeignKey(
+        code_register.resources.OccupationResource, 'occupation', null=True)
+    area_of_study = fields.ForeignKey(
+        code_register.resources.AreaOfStudyResource,
+        'area_of_study', null=True)
+
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'user_profile'
+        filtering = {
+            'username': ALL,
+        }
+        excludes = ['password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
+
+
+class QuestionResource(ModelResource):
+    # dostop preko foreignKey
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+
+    class Meta:
+        queryset = Question.objects.all()
+        resource_name = 'question'
+
+
 class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
@@ -129,27 +162,3 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
-
-
-class UserProfileResource(ModelResource):
-    language_code = fields.ForeignKey(
-        code_register.resources.LanguageResource, 'language_code', null=True)
-    age_range = fields.ForeignKey(
-        code_register.resources.AgeRangeResource, 'age_range', null=True)
-    gender = fields.ForeignKey(
-        code_register.resources.GenderResource, 'gender', null=True)
-    occupation = fields.ForeignKey(
-        code_register.resources.OccupationResource, 'occupation', null=True)
-    area_of_study = fields.ForeignKey(
-        code_register.resources.AreaOfStudyResource,
-        'area_of_study', null=True)
-
-    class Meta:
-        queryset = UserProfile.objects.all()
-        resource_name = 'user_profile'
-        filtering = {
-            'username': ALL,
-        }
-        excludes = ['password']
-        authorization = Authorization()
-        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)

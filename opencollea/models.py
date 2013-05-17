@@ -111,6 +111,8 @@ class Question(models.Model):
     title = models.CharField(max_length=20)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
+    course = models.ForeignKey(Course)
+    published = models.DateField()
 
     def __unicode__(self):
         return self.title
