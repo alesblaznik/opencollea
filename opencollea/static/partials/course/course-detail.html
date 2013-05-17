@@ -16,6 +16,15 @@
             </div>
             <div class="tab-pane" id="questions">
                 <p> Page for Q&A</p>
+                <ul class="unstyled">
+                    <li ng-repeat="question in questions.objects">
+                        <h4>  {{ question.title }} </h4>
+                        Author: {{ question.user.first_name }} {{ question.user.last_name }}
+                        Posted: {{ question.published }}
+                        {{ question.content }}
+                        <span class="label" ng-repeat="tags in tags.objects"> {{ tags }}</span>
+                    </li>
+                </ul>
             </div>
             <div class="tab-pane" id="notes">
                 <p> Notes page</p>
