@@ -12,7 +12,7 @@ from tastypie.utils import trailing_slash
 from tastypie import fields
 
 from opencollea.models import Course, UserProfile
-from opencollea.forms import UserProfileForm
+from opencollea.forms import UserProfileForm, RegistrationDetailsForm
 
 import code_register.resources
 
@@ -134,12 +134,19 @@ class CourseResource(ModelResource):
                 'error': 'Entry not successful'
             })
 
+
 class UserProfileResource(ModelResource):
-    language_code = fields.ForeignKey(code_register.resources.LanguageResource, 'language_code', null=True)
-    age_range = fields.ForeignKey(code_register.resources.AgeRangeResource, 'age_range', null=True)
-    gender = fields.ForeignKey(code_register.resources.GenderResource, 'gender', null=True)
-    occupation = fields.ForeignKey(code_register.resources.OccupationResource, 'occupation', null=True)
-    area_of_study = fields.ForeignKey(code_register.resources.AreaOfStudyResource, 'area_of_study', null=True)
+    language_code = fields.ForeignKey(code_register.resources.LanguageResource,
+                                      'language_code', null=True)
+    age_range = fields.ForeignKey(code_register.resources.AgeRangeResource,
+                                  'age_range', null=True)
+    gender = fields.ForeignKey(code_register.resources.GenderResource,
+                               'gender', null=True)
+    occupation = fields.ForeignKey(code_register.resources.OccupationResource,
+                                   'occupation', null=True)
+    area_of_study = fields.ForeignKey(
+        code_register.resources.AreaOfStudyResource,
+        'area_of_study', null=True)
 
     class Meta:
         queryset = UserProfile.objects.all()
@@ -151,3 +158,18 @@ class UserProfileResource(ModelResource):
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
 
+
+class RegistrationDetailsResource(ModelResource):
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'registration_details'
+        fields = ['first_name', 'last_name', 'email', 'password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=RegistrationDetailsForm)
+
+    def dehydrate(self, bundle):
+        # We don't send password to client
+        bundle.data['password'] = ''
+
+        return bundle

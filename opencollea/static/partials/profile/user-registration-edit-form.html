@@ -31,51 +31,47 @@
 
 <div class="span9">
   <h2>Registration Details</h2>
-  <form class="form-horizontal">
+  <form class="form-horizontal" ng-controller="UserRegistrationDetailsEditCtrl" ng-submit="saveRegistrationDetails()">
     <!-- Full Name -->
-    <div class="control-group">
+    <div class="control-group" ng-class="{error: errors.registration_details.first_name || errors.registration_details.last_name}">
       <label class="control-label">Full Name</label>
       <div class="controls">
-        <input type="text" placeholder="First">
-        <input type="text" placeholder="Last">
+        <input type="text" placeholder="First" ng-model="registration_details.first_name">
+        <span class="help-inline" ng-repeat="error_msg in errors.registration_details.first_name">{{ error_msg }}</span>
+        <input type="text" placeholder="Last" ng-model="registration_details.last_name">
+        <span class="help-inline" ng-repeat="error_msg in errors.registration_details.last_name">{{ error_msg }}</span>
       </div>
     </div>
 
     <!-- Email -->
-    <div class="control-group">
+    <div class="control-group" ng-class="{error: errors.registration_details.email}">
       <label class="control-label">Email</label>
       <div class="controls">
-        <input type="email">
+        <input type="text" ng-model="registration_details.email">
+        <span class="help-inline" ng-repeat="error_msg in errors.registration_details.email">{{ error_msg }}</span>
       </div>
     </div>
 
     <!-- Password -->
-    <div class="control-group">
+    <div class="control-group" ng-class="{error: errors.registration_details.password}">
       <label class="control-label">Password</label>
       <div class="controls">
-        <input type="password">
+        <input type="password" ng-model="registration_details.password">
+        <span class="help-inline" ng-repeat="error_msg in errors.registration_details.password">{{ error_msg }}</span>
         <span class="help-block">leave blank if you don't want to change it</span>
       </div>
     </div>
-    <div class="control-group">
+    <div class="control-group" ng-class="{error: errors.registration_details.password_confirmation}">
       <label class="control-label">Password Confirmation</label>
       <div class="controls">
-        <input type="password">
-      </div>
-    </div>
-
-    <!-- Current Password -->
-    <div class="control-group">
-      <label class="control-label">Current Password</label>
-      <div class="controls">
-        <input type="password">
-        <span class="help-block">we need your current password to confirm your changes</span>
+        <input type="password" ng-model="registration_details.password_confirmation">
+        <span class="help-inline" ng-repeat="error_msg in errors.registration_details.password_confirmation">{{ error_msg }}</span>
       </div>
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="submit" class="btn">Save &amp; Continue</button>
+      <button form-save-button-loading="Saving..." ng-click="redirectBack=true" type="submit" class="btn btn-primary">Save</button>
+      <button form-save-button-loading="Saving..." ng-click="redirectBack=false" type="submit" class="btn">Save &amp; Continue</button>
     </div>
 
 
