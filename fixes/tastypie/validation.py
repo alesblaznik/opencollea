@@ -12,8 +12,8 @@ class ModelCleanedDataFormValidation(CleanedDataFormValidation):
         """
         Returns the integer PK part of a URI.
 
-        Assumes ``/api/v1/resource/123/`` format. If conversion fails, this just
-        returns the URI unmodified.
+        Assumes ``/api/v1/resource/123/`` format. If conversion fails,
+        this just returns the URI unmodified.
 
         Also handles lists of URIs
         """

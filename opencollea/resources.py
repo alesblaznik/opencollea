@@ -1,12 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.http import request, request
-from django.shortcuts import _get_queryset
-from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import Authorization
-from tastypie.http import HttpUnauthorized, HttpForbidden
+from tastypie.http import HttpUnauthorized
 from tastypie.resources import ModelResource, ALL
-from fixes.tastypie.validation import ModelCleanedDataFormValidation
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields
@@ -14,6 +10,9 @@ from tastypie import fields
 from opencollea.models import Course, UserProfile
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm
 
+from fixes.tastypie.validation import ModelCleanedDataFormValidation
+from opencollea.models import Course, UserProfile, Question
+from opencollea.forms import UserProfileForm
 import code_register.resources
 
 
@@ -24,7 +23,7 @@ class LoginResource(ModelResource):
         excludes = ['email', 'password', 'is_superuser']
         #authentication = SessionAuthentication()
 
-    def override_urls(self):
+    def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/login%s$" %
                 (self._meta.resource_name, trailing_slash()),
@@ -84,12 +83,45 @@ class LoginResource(ModelResource):
         return self.create_response(request, user)
 
 
+class UserProfileResource(ModelResource):
+    language_code = fields.ForeignKey(
+        code_register.resources.LanguageResource, 'language_code', null=True)
+    age_range = fields.ForeignKey(
+        code_register.resources.AgeRangeResource, 'age_range', null=True)
+    gender = fields.ForeignKey(
+        code_register.resources.GenderResource, 'gender', null=True)
+    occupation = fields.ForeignKey(
+        code_register.resources.OccupationResource, 'occupation', null=True)
+    area_of_study = fields.ForeignKey(
+        code_register.resources.AreaOfStudyResource,
+        'area_of_study', null=True)
+
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'user_profile'
+        filtering = {
+            'username': ALL,
+        }
+        excludes = ['password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
+
+
+class QuestionResource(ModelResource):
+    # dostop preko foreignKey
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+
+    class Meta:
+        queryset = Question.objects.all()
+        resource_name = 'question'
+
+
 class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
 
-    def override_urls(self):
+    def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/new%s$" %
                 (self._meta.resource_name, trailing_slash()),
@@ -133,43 +165,3 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
-
-
-class UserProfileResource(ModelResource):
-    language_code = fields.ForeignKey(code_register.resources.LanguageResource,
-                                      'language_code', null=True)
-    age_range = fields.ForeignKey(code_register.resources.AgeRangeResource,
-                                  'age_range', null=True)
-    gender = fields.ForeignKey(code_register.resources.GenderResource,
-                               'gender', null=True)
-    occupation = fields.ForeignKey(code_register.resources.OccupationResource,
-                                   'occupation', null=True)
-    area_of_study = fields.ForeignKey(
-        code_register.resources.AreaOfStudyResource,
-        'area_of_study', null=True)
-
-    class Meta:
-        queryset = UserProfile.objects.all()
-        resource_name = 'user_profile'
-        filtering = {
-            'username': ALL,
-        }
-        excludes = ['password']
-        authorization = Authorization()
-        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
-
-
-class RegistrationDetailsResource(ModelResource):
-    class Meta:
-        queryset = UserProfile.objects.all()
-        resource_name = 'registration_details'
-        fields = ['first_name', 'last_name', 'email', 'password']
-        authorization = Authorization()
-        validation = ModelCleanedDataFormValidation(
-            form_class=RegistrationDetailsForm)
-
-    def dehydrate(self, bundle):
-        # We don't send password to client
-        bundle.data['password'] = ''
-
-        return bundle

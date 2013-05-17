@@ -53,10 +53,10 @@ function CourseListCtrl($scope, Course) {
     });*/
 }
 
-function CourseDetailCtrl($scope, $routeParams) {
+function CourseDetailCtrl($scope, $routeParams, Question, UserProfile) {
     $scope.courseTitle = $routeParams.courseTitle;
-  //  $scope.courses = Course.get({courseTitle: $routeParams.courseTitle}, function(course){
-  //  })
+    $scope.questions = Question.query();
+    $scope.user_profile = UserProfile.query();
 }
 
 function CourseCtrl($scope, $http) {
