@@ -79,6 +79,7 @@ class LoginResource(ModelResource):
         user = {
             'id': request.user.id,
             'username': request.user.username,
+            'email': request.user.email,
         }
         return self.create_response(request, user)
 

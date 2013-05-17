@@ -1,5 +1,5 @@
 
-var app = angular.module('opencollea', ['opencolleaServices','http-auth-interceptor']).
+var app = angular.module('opencollea', ['opencolleaServices','http-auth-interceptor', 'md5', 'ui-gravatar']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {templateUrl: '/static/partials/home/home.html'})
