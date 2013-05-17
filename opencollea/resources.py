@@ -165,3 +165,20 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
+
+
+class RegistrationDetailsResource(ModelResource):
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'registration_details'
+        fields = ['first_name', 'last_name', 'email', 'password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=RegistrationDetailsForm)
+
+    def dehydrate(self, bundle):
+        # We don't send password to client
+        bundle.data['password'] = ''
+
+        return bundle
+
