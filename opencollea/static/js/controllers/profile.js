@@ -75,4 +75,43 @@ app
        });
 }])
 
+.controller('UserRegistrationDetailsEditCtrl', ['$scope', '$rootScope', '$window', 'RegistrationDetails',
+   function($scope, $rootScope, $window, RegistrationDetails) {
+       $scope.errors = { registration_details: null };
+       $scope.registration_details = RegistrationDetails.get({userId: $scope.currentUser.id});
+
+       $scope.saveRegistrationDetails = function() {
+           $scope.loading = true;
+           $scope.registration_details.$update({userId: $scope.currentUser.id},
+               function() {
+                   // Success
+                   $scope.loading = false;
+                   $scope.errors.registration_details = null;
+
+                   $rootScope.notifications = [{
+                       class: 'alert-success',
+                       content: 'Registration Details successfully saved.'
+                   }];
+                   $window.scrollTo(0,0);
+
+                   // Redirect back
+                   if ($scope.redirectBack) {
+                       $window.history.back();
+                   }
+               },
+               function(response) {
+                   // Failed
+                   $scope.loading = false;
+                   $scope.errors.registration_details = response.data.registration_details;
+
+                   $rootScope.notifications = [{
+                      class: 'alert-error',
+                      content: "We're sorry, but please check again those pretty red labels."
+                   }];
+                   $window.scrollTo(0,0);
+               }
+           );
+       }
+}])
+
 ;

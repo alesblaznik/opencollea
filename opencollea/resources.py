@@ -7,6 +7,9 @@ from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields
 
+from opencollea.models import Course, UserProfile
+from opencollea.forms import UserProfileForm, RegistrationDetailsForm
+
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
 from opencollea.models import Course, UserProfile, Question
 from opencollea.forms import UserProfileForm
@@ -76,6 +79,7 @@ class LoginResource(ModelResource):
         user = {
             'id': request.user.id,
             'username': request.user.username,
+            'email': request.user.email,
         }
         return self.create_response(request, user)
 
@@ -162,3 +166,20 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
+
+
+class RegistrationDetailsResource(ModelResource):
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'registration_details'
+        fields = ['first_name', 'last_name', 'email', 'password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=RegistrationDetailsForm)
+
+    def dehydrate(self, bundle):
+        # We don't send password to client
+        bundle.data['password'] = ''
+
+        return bundle
+
