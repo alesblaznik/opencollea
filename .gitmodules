@@ -1,0 +1,3 @@
+[submodule "django-etherpad-lite"]
+	path = django-etherpad-lite
+	url = https://github.com/sfyn/django-etherpad-lite.git

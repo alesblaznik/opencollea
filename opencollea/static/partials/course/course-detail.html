@@ -1,48 +1,21 @@
 <div class="container-fluid">
-    <div class="row-fluid" ng-repeat="course in courses.objects">
-        <h3>Welcome to {{ course.title }} </h3>
+    <div class="row-fluid">
+        <h4>Welcome to {{course.title}}</h4>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-            <li><a href="#references" data-toggle="tab">References</a></li>
-            <li><a href="#questions" data-toggle="tab">Questions & Answers</a></li>
-            <li><a href="#notes" data-toggle="tab">Notes</a></li>
+            <li><a href="#activity">Activity</a></li>
+            <li><a href="#references">References</a></li>
+            <li><a href="#questions">Questions & Answers</a></li>
+            <li ng-class="{active: subpage == 'notes'}"><a href="#/course/{{ course.machine_readable_title }}/notes">Notes</a></li>
         </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="activity">
-                <p>Activity feed</p>
+        <div>
+            <!-- Notes -->
+            <div ng-show="subpage == 'notes'">
+                <div class="tab-pane" id="notes" ng-include src="'/static/partials/course/course-notes.html'"></div>
             </div>
-            <div class="tab-pane" id="references">
-                <p>References page</p>
+            <!-- Q&A -->
+            <div ng-show="subpage == 'questions'">
+                <div class="tab-pane" id="questions" ng-include src="'/static/partials/course/course-questions.html'"></div>
             </div>
-            <div class="tab-pane" id="questions">
-                <ul class="unstyled">
-                    <li ng-repeat="question in course.questions">
-                        <div class="well well-large">
-                            <h4>  {{ question.title }} </h4>
-                           <small> Author: <a ng-href="#/profile/{{ question.user.username }}">
-                              {{ question.user.first_name }} {{ question.user.last_name }}</a>
-                                <br> Posted: {{ question.published|date:'dd.MM.yyyy'}}</small>
-                            <hr>
-                            <blockquote> {{ question.content }} </blockquote>
-                            <hr>
-                            <!-- Seznam odgovorov -->
-                            <ul class="unstyled">
-                                <li ng-repeat="answer in question.answers">
-                                    <p> <a ng-href="#/profile/{{ answer.user.username }}">{{ answer.user.first_name }} {{ answer.user.last_name }}</a>: {{ answer.content }} </p>
-                                </li>
-                            </ul>
-                            <textarea rows="3" class="span4" placeholder="Answer question…"></textarea>
-                            <br>
-                            <button type="submit" class="btn">Submit</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-pane" id="notes">
-                <p> Notes page</p>
-            </div>
-
-
         </div>
     </div>
 </div>

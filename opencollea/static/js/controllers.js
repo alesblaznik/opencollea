@@ -52,30 +52,19 @@ function CourseListCtrl($scope, Course) {
     /*$scope.$on('$viewContentLoaded', function(){
      });*/
 }
-
+/*
+<<<<<<< HEAD
 function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
     $scope.courses = Course.getByCourseTitle({machine_readable_title: $routeParams.title});
+=======*/
+function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
+    Course.get({machine_readable_title: $routeParams.courseTitle}, function (course) {
+        $scope.course = course.objects[0];
+    });
+    $scope.courseTitle = $routeParams.courseTitle;
     $scope.questions = Question.query();
     $scope.user_profile = UserProfile.query();
     $scope.answers = Answer.query();
-/*
-    $scope.course = Course.getByCourseID({id: $routeParams.id}, function(courses) {
-        if (courses.objects.length != 1) {
-            // Course doesn't exists!
-            $rootScope.notifications = [{
-                'class': 'alert-error',
-                'content': 'Class <b>' + $routeParams.id + '</b>' + ' doesn\'t exists!'
-            }];
-
-            return;
-        }
-
-        // Now we have our course
-        $scope.course = courses.objects[0];
-
-    });
-*/
-
 
 }
 
