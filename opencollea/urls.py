@@ -3,8 +3,7 @@ from django.conf.urls.static import static
 
 from tastypie.api import Api
 import code_register
-from opencollea.resources import \
-    LoginResource, CourseResource, UserProfileResource, QuestionResource, AnswerResource
+from opencollea.resources import LoginResource, CourseResource, UserProfileResource, QuestionResource,AnswerResource, RegistrationDetailsResource
 from opencollea import settings
 
 import code_register.resources
@@ -18,6 +17,7 @@ v1_api = Api(api_name='v1')
 v1_api.register(LoginResource())
 v1_api.register(CourseResource())
 v1_api.register(UserProfileResource())
+v1_api.register(RegistrationDetailsResource())
 v1_api.register(QuestionResource())
 v1_api.register(AnswerResource())
 

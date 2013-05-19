@@ -48,7 +48,6 @@ class UserProfile(User):
         code_register.models.AreaOfStudy, blank=True, null=True)
     is_area_of_study_public = models.BooleanField(default=False)
 
-
 class Tag(models.Model):
     title = models.CharField(max_length=20)
     machine_readable_title = models.SlugField(max_length=50, unique=True,

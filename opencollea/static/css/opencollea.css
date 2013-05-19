@@ -4,6 +4,11 @@
   }
 }
 
+.big-avatar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 /**
  * Bootstrap overrides
  */
