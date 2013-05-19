@@ -188,6 +188,7 @@ class RegistrationDetailsResource(ModelResource):
 
 class EtherpadNoteResource(ModelResource):
     course = fields.ForeignKey(CourseResource, 'course')
+
     class Meta:
         queryset = EtherpadNote.objects.all()
         resource_name = 'etherpad_note'
