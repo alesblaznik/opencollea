@@ -77,7 +77,7 @@ ul.doubleList li a:hover {
 /* Sidenav for Docs
 -------------------------------------------------- */
 .bs-docs-sidenav {
-  width: 228px;
+  width: 100%;
   margin: 30px 0 0;
   padding: 0;
   background-color: #fff;
@@ -106,8 +106,6 @@ ul.doubleList li a:hover {
           border-radius: 0 0 6px 6px;
 }
 .bs-docs-sidenav > .active > a {
-  position: relative;
-  z-index: 2;
   padding: 9px 15px;
   border: 0;
   text-shadow: 0 1px 0 rgba(0,0,0,.15);
@@ -133,12 +131,5 @@ ul.doubleList li a:hover {
   background-image: url(../img/glyphicons-halflings-white.png);
   opacity: 1;
 }
-.bs-docs-sidenav.affix {
-  top: 40px;
-}
-.bs-docs-sidenav.affix-bottom {
-  position: absolute;
-  top: auto;
-  bottom: 270px;
-}
+
 

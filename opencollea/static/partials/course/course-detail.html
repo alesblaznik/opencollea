@@ -1,34 +1,17 @@
 <div class="container-fluid">
     <div class="row-fluid">
-        <h4>Welcome to {{courseTitle}}</h4>
+        <h4>Welcome to {{course.title}}</h4>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-            <li><a href="#references" data-toggle="tab">References</a></li>
-            <li><a href="#questions" data-toggle="tab">Questions & Answers</a></li>
-            <li><a href="#notes" data-toggle="tab">Notes</a></li>
+            <li><a href="#activity">Activity</a></li>
+            <li><a href="#references">References</a></li>
+            <li><a href="#questions">Questions & Answers</a></li>
+            <li ng-class="{active: subpage == 'notes'}"><a href="#/course/{{ course.machine_readable_title }}/notes">Notes</a></li>
         </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="activity">
-                <p>Activity feed</p>
-            </div>
-            <div class="tab-pane" id="references">
-                <p>References page</p>
-            </div>
-            <div class="tab-pane" id="questions">
-                <p> Page for Q&A</p>
-                <ul class="unstyled">
-                    <li ng-repeat="question in questions.objects">
-                        <h4>  {{ question.title }} </h4>
-                        Author: {{ question.user.first_name }} {{ question.user.last_name }}
-                        Posted: {{ question.published }}
-                        {{ question.content }}
-                        <span class="label" ng-repeat="tags in tags.objects"> {{ tags }}</span>
-                    </li>
-                </ul>
-            </div>
-
+        <div>
             <!-- Notes -->
-            <div class="tab-pane" id="notes" ng-include src="'/static/partials/course/course-notes.html'"></div>
+            <div ng-show="subpage == 'notes'">
+                <div class="tab-pane" id="notes" ng-include src="'/static/partials/course/course-notes.html'"></div>
+            </div>
         </div>
     </div>
 </div>

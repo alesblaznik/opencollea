@@ -30,10 +30,16 @@ class RegistrationDetailsForm(forms.ModelForm):
             if password1 != password2:
                 raise forms.ValidationError('Password must match')
             else:
-                self.cleaned_data['password'] = make_password(self.cleaned_data['password'])
+                self.cleaned_data['password'] = \
+                    make_password(self.cleaned_data['password'])
         else:
             # Uporabnik ne zeli spremenit gesla
             # To je workaround k se mi ne da vec zajebavat
             user = User.objects.get(pk=self.instance.id)
             self.cleaned_data['password'] = user.password
+
+
+class EtherpadNoteForm(forms.ModelForm):
+    class Meta:
+        model = EtherpadNote
 

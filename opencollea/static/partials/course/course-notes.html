@@ -3,28 +3,55 @@
 <!-- Button for Note creation and list of notes -->
 <div class="span3 bs-docs-sidebar">
 
-    <button style="width: 100%;" class="btn btn-large btn-danger" type="button"><i class="icon-plus icon-white"></i> Create new Note</button>
+    <div ng-controller="CreateNewNoteCtrl">
+        <button style="width: 100%;" class="btn btn-large btn-success" type="button" ng-click="openModal()"><i class="icon-plus icon-white"></i> Create new Note</button>
 
-    <ul class="nav nav-list bs-docs-sidenav">
-      <li class="active"><a href="#dropdowns"><i class="icon-chevron-right"></i> Dropdowns</a></li>
-      <li><a href="#buttonGroups"><i class="icon-chevron-right"></i> Button groups</a></li>
-      <li><a href="#buttonDropdowns"><i class="icon-chevron-right"></i> Button dropdowns</a></li>
-      <li><a href="#navs"><i class="icon-chevron-right"></i> Navs</a></li>
-      <li><a href="#navbar"><i class="icon-chevron-right"></i> Navbar</a></li>
-      <li><a href="#breadcrumbs"><i class="icon-chevron-right"></i> Breadcrumbs</a></li>
-      <li><a href="#pagination"><i class="icon-chevron-right"></i> Pagination</a></li>
-      <li><a href="#labels-badges"><i class="icon-chevron-right"></i> Labels and badges</a></li>
-      <li><a href="#typography"><i class="icon-chevron-right"></i> Typography</a></li>
-      <li><a href="#thumbnails"><i class="icon-chevron-right"></i> Thumbnails</a></li>
-      <li><a href="#alerts"><i class="icon-chevron-right"></i> Alerts</a></li>
-      <li><a href="#progress"><i class="icon-chevron-right"></i> Progress bars</a></li>
-      <li><a href="#media"><i class="icon-chevron-right"></i> Media object</a></li>
-      <li><a href="#misc"><i class="icon-chevron-right"></i> Misc</a></li>
+        <div modal="isModalOpen" options="modalOpts">
+            <div class="modal-header">
+                <h4>Create new Note</h4>
+            </div>
+            <form ng-submit="createNewNote()">
+                <div class="modal-body">
+                    <div class="control-group" ng-class="{error: isError}">
+                        <label class="control-label">Note title</label>
+                        <input ng-model="title" type="text" class="input-xlarge" placeholder="Note title">
+                        <span class="help-inline" ng-show="isError">Note with same title already exists.</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">Create new Note</button>
+                    <a class="btn" ng-click="closeModal()">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <ul class="nav nav-list bs-docs-sidenav" ng-controller="NotesListCtrl">
+      <li ng-repeat="note in notes" ng-class="{active: note.machine_readable_title == param}">
+          <a href="#/course/{{course.machine_readable_title}}/notes/{{ note.machine_readable_title }}"><i class="icon-chevron-right"></i>
+              {{ note.title }}
+          </a>
+      </li>
     </ul>
 </div>
 
-<div class="span9">
+<div class="span9" ng-controller="NoteCtrl">
+    <div id="deleteNoteAlert" class="alert alert-block alert-error fade in" style="display:none;">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4 class="alert-heading">Do you really want to delete this note?</h4>
+        <br>
+        <button ng-click="deleteThisNote()" class="btn btn-danger" href="#">Yes, this note sucks!</button> <a class="btn" data-dismiss="alert">Cancel</a>
+    </div>
+
     <!-- Place for etherpad -->
+    <h2 ng-show="note.title">{{ note.title }}
+        <a title="Delete Note" class="btn btn-danger pull-right" ng-click="confirmNoteDeletion()">
+            <i class="icon-trash"></i> Delete note
+        </a>
+    </h2>
+
+    <div id="etherpad"></div>
 </div>
 
 </div>

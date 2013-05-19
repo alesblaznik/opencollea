@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from opencollea.settings import ETHERPAD_HOST
 
 import code_register.models
 
@@ -121,3 +122,26 @@ class Answer(models.Model):
     question = models.ForeignKey(Question)
     user = models.ForeignKey(UserProfile)
     content = models.TextField()
+
+
+class EtherpadNote(models.Model):
+    course = models.ForeignKey(Course)
+    title = models.CharField(max_length=48, blank=False, null=False)
+    machine_readable_title = models.SlugField(max_length=48, unique=True,
+                                              blank=True, null=False)
+    host_url = models.URLField(blank=True, null=False)
+    pad_id = models.CharField(max_length=256, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.machine_readable_title:
+            # Title to machine readable format
+            self.machine_readable_title = slugify(self.title)
+
+        if not self.id:
+            # Etherpad info
+            self.host_url = 'http://%s/' % ETHERPAD_HOST
+            self.pad_id = 'oc-%d-%s' \
+                          % (self.course.id,
+                          self.machine_readable_title)
+        super(EtherpadNote, self).save(*args, **kwargs)
+
