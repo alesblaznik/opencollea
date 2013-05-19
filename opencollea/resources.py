@@ -7,12 +7,11 @@ from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields
 
-from opencollea.models import Course, UserProfile
-from opencollea.forms import UserProfileForm, RegistrationDetailsForm
+from opencollea.models import Course, UserProfile, Question, EtherpadNote
+from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
+    EtherpadNoteForm
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
-from opencollea.models import Course, UserProfile, Question
-from opencollea.forms import UserProfileForm
 import code_register.resources
 
 
@@ -121,6 +120,9 @@ class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
+        filtering = {
+            'machine_readable_title': ALL,
+        }
 
     def prepend_urls(self):
         return [
@@ -183,3 +185,20 @@ class RegistrationDetailsResource(ModelResource):
 
         return bundle
 
+
+class EtherpadNoteResource(ModelResource):
+    course = fields.ForeignKey(CourseResource, 'course')
+
+    class Meta:
+        queryset = EtherpadNote.objects.all()
+        resource_name = 'etherpad_note'
+        filtering = {
+            'pad_id': ALL,
+            'machine_readable_title': ALL,
+            'course': ALL,
+        }
+        ordering = ['id']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=EtherpadNoteForm
+        )

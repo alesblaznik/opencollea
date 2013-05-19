@@ -5,7 +5,7 @@ from tastypie.api import Api
 import code_register
 from opencollea.resources import \
     LoginResource, CourseResource, UserProfileResource, QuestionResource,\
-    RegistrationDetailsResource
+    RegistrationDetailsResource, EtherpadNoteResource
 from opencollea import settings
 
 import code_register.resources
@@ -21,6 +21,7 @@ v1_api.register(CourseResource())
 v1_api.register(UserProfileResource())
 v1_api.register(RegistrationDetailsResource())
 v1_api.register(QuestionResource())
+v1_api.register(EtherpadNoteResource())
 
 # code_register's API resources
 v1_api.register(code_register.resources.GenderResource())
