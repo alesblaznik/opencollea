@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class="row-fluid">
-        <h4>Welcome to {{courseTitle}}</h4>
+    <div class="row-fluid" ng-repeat="course in courses.objects">
+        <h3>Welcome to {{ course.title }} </h3>
         <ul class="nav nav-tabs">
             <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
             <li><a href="#references" data-toggle="tab">References</a></li>
@@ -15,14 +15,26 @@
                 <p>References page</p>
             </div>
             <div class="tab-pane" id="questions">
-                <p> Page for Q&A</p>
                 <ul class="unstyled">
-                    <li ng-repeat="question in questions.objects">
-                        <h4>  {{ question.title }} </h4>
-                        Author: {{ question.user.first_name }} {{ question.user.last_name }}
-                        Posted: {{ question.published }}
-                        {{ question.content }}
-                        <span class="label" ng-repeat="tags in tags.objects"> {{ tags }}</span>
+                    <li ng-repeat="question in course.questions">
+                        <div class="well well-large">
+                            <h4>  {{ question.title }} </h4>
+                           <small> Author: <a ng-href="#/profile/{{ question.user.username }}">
+                              {{ question.user.first_name }} {{ question.user.last_name }}</a>
+                                <br> Posted: {{ question.published|date:'dd.MM.yyyy'}}</small>
+                            <hr>
+                            <blockquote> {{ question.content }} </blockquote>
+                            <hr>
+                            <!-- Seznam odgovorov -->
+                            <ul class="unstyled">
+                                <li ng-repeat="answer in question.answers">
+                                    <p> <a ng-href="#/profile/{{ answer.user.username }}">{{ answer.user.first_name }} {{ answer.user.last_name }}</a>: {{ answer.content }} </p>
+                                </li>
+                            </ul>
+                            <textarea rows="3" class="span4" placeholder="Answer question…"></textarea>
+                            <br>
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
                     </li>
                 </ul>
             </div>

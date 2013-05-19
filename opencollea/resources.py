@@ -8,7 +8,7 @@ from tastypie.utils import trailing_slash
 from tastypie import fields
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
-from opencollea.models import Course, UserProfile, Question
+from opencollea.models import Course, UserProfile, Question, Answer
 from opencollea.forms import UserProfileForm
 import code_register.resources
 
@@ -107,16 +107,32 @@ class UserProfileResource(ModelResource):
 class QuestionResource(ModelResource):
     # dostop preko foreignKey
     user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    answers = fields.ToManyField('opencollea.resources.AnswerResource', 'answers', full=True)
 
     class Meta:
         queryset = Question.objects.all()
         resource_name = 'question'
 
 
+class AnswerResource(ModelResource):
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    question = fields.ToOneField(QuestionResource, 'question')
+
+    class Meta:
+        queryset = Answer.objects.all()
+        resource_name = 'answer'
+
+
+
 class CourseResource(ModelResource):
+    questions = fields.ToManyField('opencollea.resources.QuestionResource', 'questions', full=True)
+
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
+        filtering = {
+            'machine_readable_title': ALL,
+            }
 
     def prepend_urls(self):
         return [
