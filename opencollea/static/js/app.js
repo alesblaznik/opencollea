@@ -2,7 +2,7 @@
 var app = angular.module('opencollea', ['opencolleaServices','http-auth-interceptor', 'md5', 'ui-gravatar', 'ui.bootstrap']).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/', {templateUrl: '/static/partials/home/home.html'})
+            .when('/home/:courseTitle', {templateUrl: '/static/partials/home/home.html', controller: 'HomeCtrl'})
             .when('/discover', {templateUrl: '/static/partials/discover/discover.html', controller: 'DiscoverCtrl'})
             .when('/course-list', {templateUrl: '/static/partials/course/course-list.html', controller: CourseListCtrl})
             .when('/course/:courseTitle', {templateUrl: 'static/partials/course/course-detail.html', controller: 'CourseDetailCtrl'})
@@ -12,7 +12,7 @@ var app = angular.module('opencollea', ['opencolleaServices','http-auth-intercep
             .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html', controller: 'UserProfileEditCtrl'})
             .when('/auth/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html', controller: 'UserRegistrationDetailsEditCtrl'})
             .when('/new-course', {templateUrl: '/static/partials/course/new-course.html', controller: CourseCtrl})
-            .otherwise({redirectTo: '/'});
+            .otherwise({redirectTo: '/home/'});
     }]);
 
 /**
