@@ -1,6 +1,8 @@
 # Django settings for OpenCollea project.
 import os
 
+ETHERPAD_HOST = 'beta.etherpad.org'
+
 #if we want to show custom error pages this one has to be False
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

@@ -1,0 +1,35 @@
+<div class="row-fluid" ng-controller="CourseDetailCtrl">
+    <ul class="unstyled">
+        <li ng-repeat="question in course.questions">
+            <div class="well well-large">
+                <h4>  {{ question.title }} </h4>
+                <small> Author: <a ng-href="#/profile/{{ question.user.username }}">
+                    {{ question.user.first_name }} {{ question.user.last_name }}</a>
+                    <br> Posted: {{ question.published|date:'dd.MM.yyyy'}}</small>
+                <hr>
+                <blockquote> {{ question.content }} </blockquote>
+                <hr>
+                <!-- Answer List -->
+                <ul class="unstyled">
+                    <li ng-repeat="answer in question.answers">
+                        <p> <a ng-href="#/profile/{{ answer.user.username }}">{{ answer.user.first_name }} {{ answer.user.last_name }}</a>: {{ answer.content }} </p>
+                    </li>
+                </ul>
+                <br>
+                <!-- Add answer -->
+                <!--<div ng-controller="AddNewAnswerCtrl">
+                    <form ng-submit="addNewAnswer()">
+                        <div class="control-group" ng-class="{error: isError}">
+                            <label class="control-label">Answer content</label>
+                            <input ng-model="content" type="text" class="input-xlarge" placeholder="Add answer...">
+                            <span class="help-inline" ng-show="isError">Error while adding answer.</span>
+                        </div>
+                        <div>
+                            <button class="btn btn-success" type="submit">Add new answer</button>
+                        </div>
+                    </form>
+                </div>-->
+            </div>
+        </li>
+    </ul>
+</div>

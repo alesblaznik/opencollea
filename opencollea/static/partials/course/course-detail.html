@@ -1,5 +1,21 @@
 <div class="container-fluid">
-  <div class="row-fluid">
-    <h4>Welcome to {{courseTitle}}</h4>
-  </div>
+    <div class="row-fluid">
+        <h4>Welcome to {{course.title}}</h4>
+        <ul class="nav nav-tabs">
+            <li><a href="#activity">Activity</a></li>
+            <li><a href="#references">References</a></li>
+            <li ng-class="{active: subpage == 'questions'}"><a href="#/course/{{ course.machine_readable_title }}/questions">Questions & Answers</a></li>
+            <li ng-class="{active: subpage == 'notes'}"><a href="#/course/{{ course.machine_readable_title }}/notes">Notes</a></li>
+        </ul>
+        <div>
+            <!-- Notes -->
+            <div ng-show="subpage == 'notes'">
+                <div class="tab-pane" id="notes" ng-include src="'/static/partials/course/course-notes.html'"></div>
+            </div>
+            <!-- Q&A -->
+            <div ng-show="subpage == 'questions'">
+                <div class="tab-pane" id="questions" ng-include src="'/static/partials/course/course-questions.html'"></div>
+            </div>
+        </div>
+    </div>
 </div>

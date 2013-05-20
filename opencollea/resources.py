@@ -7,9 +7,11 @@ from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields
 
+from opencollea.models import Course, UserProfile, Question, EtherpadNote
+from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
+    EtherpadNoteForm, Answer, AnswerForm
+
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
-from opencollea.models import Course, UserProfile
-from opencollea.forms import UserProfileForm
 import code_register.resources
 
 
@@ -76,14 +78,72 @@ class LoginResource(ModelResource):
         user = {
             'id': request.user.id,
             'username': request.user.username,
+            'email': request.user.email,
         }
         return self.create_response(request, user)
 
 
+class UserProfileResource(ModelResource):
+    language_code = fields.ForeignKey(
+        code_register.resources.LanguageResource, 'language_code', null=True)
+    age_range = fields.ForeignKey(
+        code_register.resources.AgeRangeResource, 'age_range', null=True)
+    gender = fields.ForeignKey(
+        code_register.resources.GenderResource, 'gender', null=True)
+    occupation = fields.ForeignKey(
+        code_register.resources.OccupationResource, 'occupation', null=True)
+    area_of_study = fields.ForeignKey(
+        code_register.resources.AreaOfStudyResource,
+        'area_of_study', null=True)
+
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'user_profile'
+        filtering = {
+            'username': ALL,
+        }
+        excludes = ['password']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
+
+
+class QuestionResource(ModelResource):
+    # dostop preko foreignKey
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    answers = fields.ToManyField('opencollea.resources.AnswerResource', 'answers', full=True)
+
+    class Meta:
+        queryset = Question.objects.all()
+        resource_name = 'question'
+
+
+class AnswerResource(ModelResource):
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    question = fields.ToOneField(QuestionResource, 'question')
+
+    class Meta:
+        queryset = Answer.objects.all()
+        resource_name = 'answer'
+        filtering = {
+            'question': ALL,
+        }
+        ordering = ['id']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=AnswerForm
+        )
+
+
+
 class CourseResource(ModelResource):
+    questions = fields.ToManyField('opencollea.resources.QuestionResource', 'questions', full=True)
+
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
+        filtering = {
+            'machine_readable_title': ALL,
+        }
 
     def prepend_urls(self):
         return [
@@ -131,25 +191,35 @@ class CourseResource(ModelResource):
             })
 
 
-class UserProfileResource(ModelResource):
-    language_code = fields.ForeignKey(
-        code_register.resources.LanguageResource, 'language_code', null=True)
-    age_range = fields.ForeignKey(
-        code_register.resources.AgeRangeResource, 'age_range', null=True)
-    gender = fields.ForeignKey(
-        code_register.resources.GenderResource, 'gender', null=True)
-    occupation = fields.ForeignKey(
-        code_register.resources.OccupationResource, 'occupation', null=True)
-    area_of_study = fields.ForeignKey(
-        code_register.resources.AreaOfStudyResource,
-        'area_of_study', null=True)
-
+class RegistrationDetailsResource(ModelResource):
     class Meta:
         queryset = UserProfile.objects.all()
-        resource_name = 'user_profile'
-        filtering = {
-            'username': ALL,
-        }
-        excludes = ['password']
+        resource_name = 'registration_details'
+        fields = ['first_name', 'last_name', 'email', 'password']
         authorization = Authorization()
-        validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
+        validation = ModelCleanedDataFormValidation(
+            form_class=RegistrationDetailsForm)
+
+    def dehydrate(self, bundle):
+        # We don't send password to client
+        bundle.data['password'] = ''
+
+        return bundle
+
+
+class EtherpadNoteResource(ModelResource):
+    course = fields.ForeignKey(CourseResource, 'course')
+
+    class Meta:
+        queryset = EtherpadNote.objects.all()
+        resource_name = 'etherpad_note'
+        filtering = {
+            'pad_id': ALL,
+            'machine_readable_title': ALL,
+            'course': ALL,
+        }
+        ordering = ['id']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=EtherpadNoteForm
+        )
