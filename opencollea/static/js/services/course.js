@@ -12,10 +12,12 @@ app
 
 
 .factory('Course', ['$resource', function ($resource) {
+        /*         return $resource('/api/v1/course', {}, { */
    return $resource('/api/v1/course/:id',
        {}, {
            query: {method: 'GET', isArray: false},
-           'update': {method:'PUT'}
+           'update': {method:'PUT'},
+           'getByCourseTitle': {method:'GET', params:{machine_readable_title:':title'}}
        });
 }])
 

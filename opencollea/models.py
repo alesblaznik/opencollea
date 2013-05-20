@@ -112,7 +112,7 @@ class Question(models.Model):
     title = models.CharField(max_length=20)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
-    course = models.ForeignKey(Course)
+    course = models.ForeignKey('Course', related_name='questions')
     published = models.DateField()
 
     def __unicode__(self):
@@ -120,7 +120,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey('Question', related_name='answers')
     user = models.ForeignKey(UserProfile)
     content = models.TextField()
 

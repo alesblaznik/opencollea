@@ -1,30 +1,30 @@
 
 angular.module('opencollea').controller({
 
-  AuthController: function($scope, $http, authService) {
-    $scope.login = function() {
-      data = {
-          'username': $scope.username,
-          'password': $scope.password,
-          'redirectTo': $scope.redirectTo
-      }
+    AuthController: function($scope, $http, authService) {
+        $scope.login = function() {
+            data = {
+                'username': $scope.username,
+                'password': $scope.password,
+                'redirectTo': $scope.redirectTo
+            }
 
-      $http.post('/api/v1/auth/login', data).success(function(response) {
-        if (true == response.success) {
-          authService.loginConfirmed();
-          window.location.href = response.redirectTo;
-        } else {
-          $scope.showLoginMessage = true;
-        }
-      });
-    },
+            $http.post('/api/v1/auth/login', data).success(function(response) {
+                if (true == response.success) {
+                    authService.loginConfirmed();
+                    window.location.href = response.redirectTo;
+                } else {
+                    $scope.showLoginMessage = true;
+                }
+            });
+        },
 
-    $scope.logout = function() {
-        $http.get('/api/v1/auth/logout').success(function() {
-            window.location.href = '/login/'
-        });
+            $scope.logout = function() {
+                $http.get('/api/v1/auth/logout').success(function() {
+                    window.location.href = '/login/'
+                });
+            }
     }
-  }
 
 });
 
@@ -50,25 +50,31 @@ function CourseListCtrl($scope, Course) {
         globalInitPie(courses)
     });
     /*$scope.$on('$viewContentLoaded', function(){
-    });*/
+     });*/
 }
-
-function CourseDetailCtrl($scope, $routeParams, Question, UserProfile, Course) {
+/*
+<<<<<<< HEAD
+function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
+    $scope.courses = Course.getByCourseTitle({machine_readable_title: $routeParams.title});
+=======*/
+function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
     Course.get({machine_readable_title: $routeParams.courseTitle}, function (course) {
         $scope.course = course.objects[0];
     });
     $scope.courseTitle = $routeParams.courseTitle;
     $scope.questions = Question.query();
     $scope.user_profile = UserProfile.query();
+    $scope.answers = Answer.query();
+
 }
 
 function CourseCtrl($scope, $http) {
     $scope.newCourse = function() {
         data = {
-          'title': $scope.title,
-          'machine_readable_title': $scope.machine_readable_title,
-          'description': $scope.description,
-          'website': $scope.website
+            'title': $scope.title,
+            'machine_readable_title': $scope.machine_readable_title,
+            'description': $scope.description,
+            'website': $scope.website
         }
         var formEl = $('#newCourseForm');
         var msgDiv = $(formEl).find('.msgDiv:eq(0)');

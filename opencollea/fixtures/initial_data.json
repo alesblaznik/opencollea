@@ -1,52 +1,127 @@
 [
-{
-	"pk": 1,
-	"model": "opencollea.course",
-	"fields": {
-		"website": "http://laps.fri.uni-lj.si/ars/ars.htm",
-		"machine_readable_title": "arhitektura-racunalniskih-sistemov",
-		"description": "Cilj predmeta je poznavanje zgradbe in delovanja mikroprocesorjev, razli\u010dnih tipov predpomnilnikov, glavnega pomnilnika in navideznega pomnilnika, spoznamo se pa tudi z vhodno/izhodnimi napravami oziroma celotnimi vhodno/izhodnimi sistemi.",
-		"title": "Systems Programming"
-	}
-},
-{
-	"pk": 2,
-	"model": "opencollea.course",
-	"fields": {
-		"website": "http://laps.fri.uni-lj.si/ars/ars.htm",
-		"machine_readable_title": "organizacija-racunalniskih-sistemov",
-		"description": "Cilj predmeta je poznavanje zgradbe in delovanja mikroprocesorjev, razli\u010dnih tipov predpomnilnikov, glavnega pomnilnika in navideznega pomnilnika, spoznamo se pa tudi z vhodno/izhodnimi napravami oziroma celotnimi vhodno/izhodnimi sistemi.",
-		"title": "Database Design"
-	}
-},
-{
-	"pk": 3,
-	"model": "opencollea.course",
-	"fields": {
-		"website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=5",
-		"machine_readable_title": "diskretne-strukture",
-		"description": "Diskretne strukture predstavljajo tisti del matematike, ki se zelo dobro razume z ra\u010dunalniki. Ponudile mu bodo razli\u010dne na\u010dine ra\u010dunanja, pri katerih se ne bo nikoli zmotil, kljub vsemu pa bo znal kaj uporabnega izra\u010dunati.",
-		"title": "Web Programming"
-	}
-},
-{
-	"pk": 4,
-	"model": "opencollea.course",
-	"fields": {
-		"website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=7",
-		"machine_readable_title": "fizika",
-		"description": "Cilj predmeta je \u0161tudentom ra\u010dunalni\u0161tva in informatike predstaviti osnovne fizikalne zakone, kvantitativno obravnavo nekaterih relevantnih primerov uporabe fizikalnih zakonitosti in predstavitev \u00bbfizikalne metode\u00ab -- to je izgradnja analiti\u010dnih modelov fizikalnih pojavov na osnovi merskih podatkov in uporaba tak\u0161nih modelov pri re\u0161evanju tehni\u0161kih problemov.",
-		"title": "Computer Organization"
-	}
-},
-{
-	"pk": 5,
-	"model": "opencollea.course",
-	"fields": {
-		"website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=9",
-		"machine_readable_title": "komunikacija-clovek-racunalnik",
-		"description": "Cilj predmeta je podati splo\u0161ni uvod v podro\u010dje interakcije med \u010dlovekom in ra\u010dunalnikom. \u0160tudentje naj razumejo \u0161irok razpon osnovnih konceptov pri komunikaciji med \u010dlovekom in ra\u010dunalnikom ter naj so sposobni uporabiti osnovne principe, navodila in tehnike na\u010drtovanja za: na\u010drtovanje uporabni\u0161kih vmesnikov oziroma interaktivnih aplikacij, za njihovo analizo in evaluacijo ter za vrednotenje njihove uporabnosti.",
-		"title": "Discrete Structures"
-	}
-}
+    {
+        "pk": 1,
+        "model": "opencollea.course",
+        "fields": {
+            "website": "http://laps.fri.uni-lj.si/ars/ars.htm",
+            "machine_readable_title": "systems-programming",
+            "description": "Cilj predmeta je poznavanje zgradbe in delovanja mikroprocesorjev, razli\u010dnih tipov predpomnilnikov, glavnega pomnilnika in navideznega pomnilnika, spoznamo se pa tudi z vhodno/izhodnimi napravami oziroma celotnimi vhodno/izhodnimi sistemi.",
+            "title": "Systems Programming"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "opencollea.course",
+        "fields": {
+            "website": "http://laps.fri.uni-lj.si/ars/ars.htm",
+            "machine_readable_title": "database-design",
+            "description": "Cilj predmeta je poznavanje zgradbe in delovanja mikroprocesorjev, razli\u010dnih tipov predpomnilnikov, glavnega pomnilnika in navideznega pomnilnika, spoznamo se pa tudi z vhodno/izhodnimi napravami oziroma celotnimi vhodno/izhodnimi sistemi.",
+            "title": "Database Design"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "opencollea.course",
+        "fields": {
+            "website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=5",
+            "machine_readable_title": "web-programming",
+            "description": "Diskretne strukture predstavljajo tisti del matematike, ki se zelo dobro razume z ra\u010dunalniki. Ponudile mu bodo razli\u010dne na\u010dine ra\u010dunanja, pri katerih se ne bo nikoli zmotil, kljub vsemu pa bo znal kaj uporabnega izra\u010dunati.",
+            "title": "Web Programming"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "opencollea.course",
+        "fields": {
+            "website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=7",
+            "machine_readable_title": "computer-organization",
+            "description": "Cilj predmeta je \u0161tudentom ra\u010dunalni\u0161tva in informatike predstaviti osnovne fizikalne zakone, kvantitativno obravnavo nekaterih relevantnih primerov uporabe fizikalnih zakonitosti in predstavitev \u00bbfizikalne metode\u00ab -- to je izgradnja analiti\u010dnih modelov fizikalnih pojavov na osnovi merskih podatkov in uporaba tak\u0161nih modelov pri re\u0161evanju tehni\u0161kih problemov.",
+            "title": "Computer Organization"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "opencollea.course",
+        "fields": {
+            "website": "https://ucilnica.fri.uni-lj.si/course/view.php?id=9",
+            "machine_readable_title": "discrete-structures",
+            "description": "Cilj predmeta je podati splo\u0161ni uvod v podro\u010dje interakcije med \u010dlovekom in ra\u010dunalnikom. \u0160tudentje naj razumejo \u0161irok razpon osnovnih konceptov pri komunikaciji med \u010dlovekom in ra\u010dunalnikom ter naj so sposobni uporabiti osnovne principe, navodila in tehnike na\u010drtovanja za: na\u010drtovanje uporabni\u0161kih vmesnikov oziroma interaktivnih aplikacij, za njihovo analizo in evaluacijo ter za vrednotenje njihove uporabnosti.",
+            "title": "Discrete Structures"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "opencollea.tag",
+        "fields": {
+            "machine_readable_title": "code",
+            "title": "code"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "opencollea.tag",
+        "fields": {
+            "machine_readable_title": "django",
+            "title": "django"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "auth.user",
+        "fields": {
+            "username": "janez",
+            "first_name": "Sugar Ray",
+            "last_name": "Leonard",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-05-17T06:19:52.939Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$AC9NM3r7PU7B$hokwLERRJ1ukKd/zPqW3oJONdtcH0o2uxSWV5FlnsN0=",
+            "email": "jagag@m.com",
+            "date_joined": "2013-05-17T06:17:46.119Z"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "opencollea.userprofile",
+        "fields": {
+            "website": "",
+            "lives_in": "Spodnji Duplek",
+            "age_range": 8,
+            "is_lives_in_public": true,
+            "courses_enrolled": [],
+            "area_of_study": 4,
+            "is_biography_public": true,
+            "is_occupation_public": true,
+            "is_language_code_public": true,
+            "is_age_range_public": false,
+            "gender": 1,
+            "avatar": "",
+            "groups": [],
+            "language_code": 1,
+            "is_gender_public": true,
+            "timezone": "Europe/Ljubljana",
+            "user_permissions": [],
+            "is_area_of_study_public": true,
+            "biography": "Sugar Ray Leonard was born on May 17, 1956 in Rocky Mount, North Carolina. He won the gold medal in light-welterweight boxing at the 1976 Olympic Games, and went pro the following year. His 1987 defeat of 'Marvelous' Marvin Hagler for the World Boxing Council's middleweight title is considered one of the greatest professional boxing matches of all time. Leonard retired in 1997, and was inducted into the Boxing Hall of Fame.",
+            "occupation": 2
+        }
+    },
+    {
+        "pk": 1,
+        "model": "opencollea.question",
+        "fields": {
+            "tags": [
+                1,
+                2
+            ],
+            "title": "How to make Django..",
+            "content": "I have a Django backend and I'm testing it right now.",
+            "course": 3,
+            "user": 2,
+            "published": "2013-05-17"
+        }
+    }
 ]

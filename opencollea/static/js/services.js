@@ -6,6 +6,12 @@ angular.module('opencolleaServices', ['ngResource'])
     })
     .factory('Question', function ($resource) {
         return $resource('/api/v1/question', {}, {
-            query: {method: 'GET'}
+            'query': {method: 'GET'}
+        })
+    })
+    .factory('Answer', function ($resource) {
+        return $resource('/api/v1/answer', {}, {
+            'query': {method: 'GET'},
+            'postNew': {method: 'POST'}
         })
     });

@@ -9,7 +9,7 @@ from tastypie import fields
 
 from opencollea.models import Course, UserProfile, Question, EtherpadNote
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
-    EtherpadNoteForm
+    EtherpadNoteForm, Answer
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
 import code_register.resources
@@ -110,13 +110,26 @@ class UserProfileResource(ModelResource):
 class QuestionResource(ModelResource):
     # dostop preko foreignKey
     user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    answers = fields.ToManyField('opencollea.resources.AnswerResource', 'answers', full=True)
 
     class Meta:
         queryset = Question.objects.all()
         resource_name = 'question'
 
 
+class AnswerResource(ModelResource):
+    user = fields.ToOneField(UserProfileResource, 'user', full=True)
+    question = fields.ToOneField(QuestionResource, 'question')
+
+    class Meta:
+        queryset = Answer.objects.all()
+        resource_name = 'answer'
+
+
+
 class CourseResource(ModelResource):
+    questions = fields.ToManyField('opencollea.resources.QuestionResource', 'questions', full=True)
+
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
