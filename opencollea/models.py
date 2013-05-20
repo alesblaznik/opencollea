@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from opencollea.settings import ETHERPAD_HOST
+from find_courses.models import Course as MoocCourse
 
 import code_register.models
 
@@ -12,6 +13,7 @@ class Course(models.Model):
                                               blank=True)
     description = models.TextField(blank=True)
     website = models.URLField(blank=True)
+    mooc = models.OneToOneField(MoocCourse, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.id and not self.machine_readable_title:

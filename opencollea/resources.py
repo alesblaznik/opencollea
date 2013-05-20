@@ -13,6 +13,8 @@ from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
 import code_register.resources
+from find_courses.models import Course as MoocCourse
+from find_courses.resources import MoocCourseResource
 
 
 class LoginResource(ModelResource):
@@ -84,6 +86,8 @@ class LoginResource(ModelResource):
 
 
 class UserProfileResource(ModelResource):
+    courses_enrolled = fields.ToManyField(
+        'opencollea.resources.CourseResource', 'courses_enrolled')
     language_code = fields.ForeignKey(
         code_register.resources.LanguageResource, 'language_code', null=True)
     age_range = fields.ForeignKey(
@@ -106,11 +110,43 @@ class UserProfileResource(ModelResource):
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
 
+    def prepend_urls(self):
+        return [
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/courses_not_enrolled%s$"
+                % (self._meta.resource_name,
+                   trailing_slash()),
+                self.wrap_view('get_courses_not_enrolled'),
+                name="api_get_courses_not_enrolled"),
+        ]
+
+    def get_courses_not_enrolled(self, request, **kwargs):
+        """
+        Za uporabnika vrne razreda v katere ni vpisan.
+        """
+        self.method_check(request, allowed=['get'])
+        self.is_authenticated(request)
+        self.throttle_check(request)
+
+        course_resource = CourseResource()
+        objects = []
+        for course in Course.objects.exclude(id__in=[c.id for c in UserProfile.objects.get(pk=kwargs.get('pk', 0)).courses_enrolled.all()]):
+            bundle = course_resource.build_bundle(obj=course, request=request)
+            bundle = course_resource.full_dehydrate(bundle)
+            objects.append(bundle)
+
+        object_list = {
+            'objects': objects,
+        }
+
+        self.log_throttled_access(request)
+        return self.create_response(request, object_list)
+
 
 class QuestionResource(ModelResource):
     # dostop preko foreignKey
     user = fields.ToOneField(UserProfileResource, 'user', full=True)
-    answers = fields.ToManyField('opencollea.resources.AnswerResource', 'answers', full=True)
+    answers = fields.ToManyField('opencollea.resources.AnswerResource',
+                                 'answers', full=True)
 
     class Meta:
         queryset = Question.objects.all()
@@ -135,14 +171,15 @@ class AnswerResource(ModelResource):
         )
 
 
-
 class CourseResource(ModelResource):
-    questions = fields.ToManyField('opencollea.resources.QuestionResource', 'questions', full=True)
+    questions = fields.ToManyField('opencollea.resources.QuestionResource',
+                                   'questions', full=True)
 
     class Meta:
         queryset = Course.objects.all()
         resource_name = 'course'
         filtering = {
+            'id': ALL,
             'machine_readable_title': ALL,
         }
         ordering = ['id']
@@ -152,6 +189,10 @@ class CourseResource(ModelResource):
             url(r"^(?P<resource_name>%s)/new%s$" %
                 (self._meta.resource_name, trailing_slash()),
                 self.wrap_view('new'), name="course_new"),
+            url(r"^(?P<resource_name>%s)/mooc_courses_noone_took%s$" %
+                (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('mooc_courses_noone_took'),
+                name="api_mooc_courses_noone_took"),
         ]
 
     def new(self, request, **kwargs):
@@ -191,6 +232,28 @@ class CourseResource(ModelResource):
             return self.create_response(request, {
                 'error': 'Entry not successful'
             })
+
+    def mooc_courses_noone_took(self, request, **kwargs):
+        """
+        Mooc coursi iz katerih se ni narejenega nobenega "nasega" razreda.
+        """
+        self.method_check(request, allowed=['get'])
+        self.is_authenticated(request)
+        self.throttle_check(request)
+
+        mooc_resource = MoocCourseResource()
+        objects = []
+        for mooc in MoocCourse.objects.exclude(pk__in=[c.mooc for c in Course.objects.filter(mooc__isnull=False)]):
+            bundle = mooc_resource.build_bundle(obj=mooc, request=request)
+            bundle = mooc_resource.full_dehydrate(bundle)
+            objects.append(bundle)
+
+        object_list = {
+            'objects': objects,
+        }
+
+        self.log_throttled_access(request)
+        return self.create_response(request, object_list)
 
 
 class RegistrationDetailsResource(ModelResource):
