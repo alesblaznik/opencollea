@@ -66,6 +66,14 @@
         }
     },
     {
+        "pk": 3,
+        "model": "opencollea.tag",
+        "fields": {
+            "machine_readable_title": "exams",
+            "title": "exams"
+        }
+    },
+    {
         "pk": 2,
         "model": "auth.user",
         "fields": {
@@ -83,6 +91,25 @@
             "date_joined": "2013-05-17T06:17:46.119Z"
         }
     },
+
+    {
+        "pk": 3,
+        "model": "auth.user",
+        "fields": {
+            "username": "micka",
+            "first_name": "Phill",
+            "last_name": "Hellmuth",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2013-05-20T17:18:32.266Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$WlvKw7z2rUHu$R0I69vIFW53f3DvRYffm4m+A76vRoxrSMgDMUQrDUr0=",
+            "email": "phil.hellmuth@gmail.com",
+            "date_joined": "2013-05-20T17:18:32.266Z"
+        }
+    },
     {
         "pk": 2,
         "model": "opencollea.userprofile",
@@ -91,7 +118,7 @@
             "lives_in": "Spodnji Duplek",
             "age_range": 8,
             "is_lives_in_public": true,
-            "courses_enrolled": [],
+            "courses_enrolled": [1,2,3],
             "area_of_study": 4,
             "is_biography_public": true,
             "is_occupation_public": true,
@@ -107,6 +134,32 @@
             "is_area_of_study_public": true,
             "biography": "Sugar Ray Leonard was born on May 17, 1956 in Rocky Mount, North Carolina. He won the gold medal in light-welterweight boxing at the 1976 Olympic Games, and went pro the following year. His 1987 defeat of 'Marvelous' Marvin Hagler for the World Boxing Council's middleweight title is considered one of the greatest professional boxing matches of all time. Leonard retired in 1997, and was inducted into the Boxing Hall of Fame.",
             "occupation": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "opencollea.userprofile",
+        "fields": {
+            "website": "",
+            "lives_in": "",
+            "age_range": null,
+            "is_lives_in_public": false,
+            "courses_enrolled": [3,4],
+            "area_of_study": null,
+            "is_biography_public": false,
+            "is_occupation_public": false,
+            "is_language_code_public": false,
+            "is_age_range_public": false,
+            "gender": null,
+            "avatar": "",
+            "groups": [],
+            "language_code": null,
+            "is_gender_public": false,
+            "timezone": "Europe/Ljubljana",
+            "user_permissions": [],
+            "is_area_of_study_public": false,
+            "biography": "",
+            "occupation": null
         }
     },
     {
@@ -136,6 +189,34 @@
             "course": 4,
             "user": 2,
             "published": "2013-05-18"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "opencollea.question",
+        "fields": {
+            "tags": [
+                2
+            ],
+            "title": "I can't save answers",
+            "content": "I'm having problems saving answers below this question, can someone help me?",
+            "course": 5,
+            "user": 3,
+            "published": "2013-05-20"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "opencollea.question",
+        "fields": {
+            "tags": [
+                3
+            ],
+            "title": "Where to study 4 Exm",
+            "content": "You know Du\u0161an, his exams are very difficult... Where should I start?",
+            "course": 4,
+            "user": 3,
+            "published": "2013-05-20"
         }
     },
     {
@@ -171,6 +252,33 @@
         "fields": {
             "content": "Homework sucks.",
             "question": 2,
+            "user": 2
+        }
+    },
+    {
+        "pk": 5,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "I had big problems until i found this video:\r\nhttp://www.youtube.com/watch?feature=player_embedded&v=i9MHigUZKEM\r\nHope I helped :)",
+            "question": 3,
+            "user": 2
+        }
+    },
+    {
+        "pk": 6,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "Try looking @ ucilnica",
+            "question": 2,
+            "user": 3
+        }
+    },
+    {
+        "pk": 7,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "You must definitively buy Computer Organisation book (1985 version).",
+            "question": 4,
             "user": 2
         }
     }

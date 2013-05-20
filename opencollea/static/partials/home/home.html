@@ -4,41 +4,44 @@
             <!--Sidebar content-->
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
-                    <li class="nav-header">Your Classes</li>
+                    <li class="nav-header">Your Classes (TBD)</li>
                     <li class="active"><a href="#">Programming</a></li>
                     <li><a href="#">Kodekov kotiček</a></li>
                     <li><a href="#">Bratkove umetnosti</a></li>
                     <li><a href="#">Jurišičev krožek</a></li>
                     <li class="nav-header">Recommended Classes</li>
-                    <li><a href="#">Artificial Inteligence</a></li>
-                    <li><a href="#">Databases</a></li>
-                    <li><a href="#">Ovo ono</a></li>
+                    <li ng-repeat='course in courses.objects'>
+                        <a href="#/home/{{ course.machine_readable_title }}">{{ course.title }} </a>
+                    </li>
+                    <br/>
+
                 </ul>
             </div><!--/.well -->
+            <!--<div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Your Classes (TBD)</li>
+                    <li class="nav-header">All Classes</li>
+                    <li class="btn btn-link btn-large" ng-repeat='course in courses.objects' ng-click="changeCourse()"><i class="icon-chevron-right"></i> <a href="#/{{ course.machine_readable_title }}">{{ course.title }} </a></li>
+                </ul>
+            </div>-->
         </div>
+
         <div class="span9">
             <!--Body content-->
             <div class="leaderboard">
-                <h1>Class name</h1>
-                <p>Class description</p>
-                <p><a class="btn btn-success btn-large">Go to class/enroll me</a></p>
+                <h1>{{ course.title }}</h1>
+                <p>{{ course.description }}</p>
+                <p><a class="btn btn-success btn-large" href="#/course/{{ course.machine_readable_title }}">Go to class/enroll me</a></p>
             </div>
             <div class="row-fluid">
-                <div class="span4">
-                    <h2>Activity 1</h2>
-                    <p>Janko posted picture. </p>
-                    <p><a class="btn btn-success btn-large" href="#">Go to activity</a></p>
+                <div class="well span4" ng-repeat="question in lastquestions.objects">
+                    <h2>{{ question.title }}</h2>
+                    <p>{{ question.content }}</p>
+
+                    <p><a class="btn btn-success btn-large" href="#/course/{{ course.machine_readable_title }}/questions">Go to activity</a></p>
+                    <!-- TBD: <span class="label label-info" ng-repeat="tag in question.tags">{{ tag.title }}</span> -->
                 </div><!--/span-->
-                <div class="span4">
-                    <h2>Activity 2</h2>
-                    <p>Micka asked question. </p>
-                    <p><a class="btn btn-success btn-large" href="#">Go to activity</a></p>
-                </div><!--/span-->
-                <div class="span4">
-                    <h2>Activity 3</h2>
-                    <p>Dule did something. </p>
-                    <p><a class="btn btn-success btn-large" href="#">Go to something.</a></p>
-                </div><!--/span-->
+
             </div>
         </div>
     </div>

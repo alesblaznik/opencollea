@@ -32,7 +32,8 @@ class UserProfile(User):
         code_register.models.Language, blank=True, null=True)
     is_language_code_public = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user_profile/avatar', blank=True)
-    courses_enrolled = models.ManyToManyField(Course, blank=True)
+    courses_enrolled = models.ManyToManyField('Course', related_name='courses', blank=True)
+    #courses_enrolled = models.ForeignKey('Course', related_name='courses')
     website = models.URLField(blank=True)
     lives_in = models.CharField(max_length=128)
     is_lives_in_public = models.BooleanField(default=False)
@@ -111,7 +112,7 @@ class Reference(models.Model):
 
 class Question(models.Model):
     user = models.ForeignKey(UserProfile)
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=50)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
     course = models.ForeignKey('Course', related_name='questions')
@@ -126,6 +127,8 @@ class Answer(models.Model):
     user = models.ForeignKey(UserProfile)
     content = models.TextField()
 
+    def save(self, *args, **kwargs):
+        super(Answer, self).save(*args, **kwargs)
 
 class EtherpadNote(models.Model):
     course = models.ForeignKey(Course)

@@ -151,6 +151,7 @@ class QuestionResource(ModelResource):
     class Meta:
         queryset = Question.objects.all()
         resource_name = 'question'
+        ordering = ['published']
 
 
 class AnswerResource(ModelResource):
@@ -181,6 +182,7 @@ class CourseResource(ModelResource):
             'id': ALL,
             'machine_readable_title': ALL,
         }
+        ordering = ['id']
 
     def prepend_urls(self):
         return [
