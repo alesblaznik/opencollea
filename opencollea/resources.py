@@ -112,7 +112,8 @@ class UserProfileResource(ModelResource):
 
     def prepend_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/courses_not_enrolled%s$"
+            url(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)"
+                r"/courses_not_enrolled%s$"
                 % (self._meta.resource_name,
                    trailing_slash()),
                 self.wrap_view('get_courses_not_enrolled'),
@@ -129,7 +130,10 @@ class UserProfileResource(ModelResource):
 
         course_resource = CourseResource()
         objects = []
-        for course in Course.objects.exclude(id__in=[c.id for c in UserProfile.objects.get(pk=kwargs.get('pk', 0)).courses_enrolled.all()]):
+        for course in Course.objects.exclude(
+                id__in=[c.id for c in UserProfile.objects.get
+                        (pk=kwargs.get('pk', 0)).courses_enrolled.all()]
+        ):
             bundle = course_resource.build_bundle(obj=course, request=request)
             bundle = course_resource.full_dehydrate(bundle)
             objects.append(bundle)
@@ -195,6 +199,7 @@ class CourseResource(ModelResource):
 
     def new(self, request, **kwargs):
         from opencollea.models import Course
+
         self.method_check(request, allowed=['post'])
         required = []
         data = self.deserialize(request, request.raw_post_data,
@@ -241,7 +246,10 @@ class CourseResource(ModelResource):
 
         mooc_resource = MoocCourseResource()
         objects = []
-        for mooc in MoocCourse.objects.exclude(pk__in=[c.mooc for c in Course.objects.filter(mooc__isnull=False)]):
+        for mooc in MoocCourse.objects.exclude(
+                pk__in=[c.mooc for c in
+                        Course.objects.filter(mooc__isnull=False)]
+        ):
             bundle = mooc_resource.build_bundle(obj=mooc, request=request)
             bundle = mooc_resource.full_dehydrate(bundle)
             objects.append(bundle)

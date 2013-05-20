@@ -5,7 +5,7 @@ from tastypie.api import Api
 import code_register
 
 from opencollea.resources import \
-    LoginResource, CourseResource, UserProfileResource, QuestionResource,\
+    LoginResource, CourseResource, UserProfileResource, QuestionResource, \
     RegistrationDetailsResource, EtherpadNoteResource, AnswerResource
 from opencollea import settings
 
@@ -60,5 +60,8 @@ urlpatterns = \
              url(r'^find_courses/', include('find_courses.urls',
                                             namespace='find_courses')),
 
+             url("", include("django_socketio.urls")),
+             url(r'^chat/', include("chat.urls")),
 
-             ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
