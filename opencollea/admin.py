@@ -3,8 +3,7 @@ from opencollea.models import *
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    fields = ['username', 'password', 'first_name', 'last_name',
-              'email']
+    fields = ['first_name', 'last_name', 'email', 'courses_enrolled']
     list_display = ('username', 'first_name', 'last_name', 'email')
 
 
