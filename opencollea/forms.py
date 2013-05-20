@@ -42,3 +42,8 @@ class RegistrationDetailsForm(forms.ModelForm):
 class EtherpadNoteForm(forms.ModelForm):
     class Meta:
         model = EtherpadNote
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer

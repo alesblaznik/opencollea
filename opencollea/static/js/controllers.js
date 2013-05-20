@@ -52,21 +52,8 @@ function CourseListCtrl($scope, Course) {
     /*$scope.$on('$viewContentLoaded', function(){
      });*/
 }
-/*
-<<<<<<< HEAD
-function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
-    $scope.courses = Course.getByCourseTitle({machine_readable_title: $routeParams.title});
-=======*/
-function CourseDetailCtrl($scope, $routeParams, Question, Answer, UserProfile, Course) {
-    Course.get({machine_readable_title: $routeParams.courseTitle}, function (course) {
-        $scope.course = course.objects[0];
-    });
-    $scope.courseTitle = $routeParams.courseTitle;
-    $scope.questions = Question.query();
-    $scope.user_profile = UserProfile.query();
-    $scope.answers = Answer.query();
 
-}
+
 
 function CourseCtrl($scope, $http) {
     $scope.newCourse = function() {

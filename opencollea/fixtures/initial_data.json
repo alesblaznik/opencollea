@@ -79,7 +79,7 @@
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$AC9NM3r7PU7B$hokwLERRJ1ukKd/zPqW3oJONdtcH0o2uxSWV5FlnsN0=",
-            "email": "jagag@m.com",
+            "email": "andraz.oberstar@gmail.com",
             "date_joined": "2013-05-17T06:17:46.119Z"
         }
     },
@@ -122,6 +122,56 @@
             "course": 3,
             "user": 2,
             "published": "2013-05-17"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "opencollea.question",
+        "fields": {
+            "tags": [
+                1
+            ],
+            "title": "How to make HW",
+            "content": "I have problems with our last homework, somebody pls help!",
+            "course": 4,
+            "user": 2,
+            "published": "2013-05-18"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "I suggest Django tutorial.\r\nhttps://docs.djangoproject.com/en/dev/intro/tutorial01/",
+            "question": 1,
+            "user": 2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "Go to w3 and look for tutorial dude.",
+            "question": 2,
+            "user": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "Django sucks.",
+            "question": 1,
+            "user": 2
+        }
+    },
+    {
+        "pk": 4,
+        "model": "opencollea.answer",
+        "fields": {
+            "content": "Homework sucks.",
+            "question": 2,
+            "user": 2
         }
     }
 ]
