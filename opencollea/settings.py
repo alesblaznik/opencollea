@@ -140,6 +140,8 @@ INSTALLED_APPS = (
     'find_courses',
     'code_register',
     'tastypie',
+    'django_socketio',
+    'chat',
 )
 
 # A sample logging configuration. The only tangible logging
