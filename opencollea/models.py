@@ -124,6 +124,8 @@ class Answer(models.Model):
     user = models.ForeignKey(UserProfile)
     content = models.TextField()
 
+    def save(self, *args, **kwargs):
+        super(Answer, self).save(*args, **kwargs)
 
 class EtherpadNote(models.Model):
     course = models.ForeignKey(Course)

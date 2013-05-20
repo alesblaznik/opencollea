@@ -93,32 +93,32 @@ app
             });
         }
     }])
-/*
-    .controller('AddNewAnswerCtrl', ['$scope', '$rootScope', '$window', 'Answer', function($scope, $rootScope, $window, Answer) {
+    /*
+     .controller('AddNewAnswerCtrl', ['$scope', '$rootScope', '$window', 'Answer', function($scope, $rootScope, $window, Answer) {
 
-        $scope.addNewAnswer = function () {
-            // Save note and redirect to created note!
-            var Answer = new Answer({
-                course: $scope.course.resource_uri,
-                title: $scope.title
-            });
-            Answer.$save(function () {
-                $rootScope.notifications = [{
-                    class: 'alert-success',
-                    content: 'Answer added.'
-                }];
-                $scope.isError = false;
+     $scope.addNewAnswer = function () {
+     // Save note and redirect to created note!
+     var Answer = new Answer({
+     course: $scope.course.resource_uri,
+     title: $scope.title
+     });
+     Answer.$save(function () {
+     $rootScope.notifications = [{
+     class: 'alert-success',
+     content: 'Answer added.'
+     }];
+     $scope.isError = false;
 
-                // Redirect user to this new note
-                /* EtherpadNote.get({course: $scope.course.id, limit: 1, order_by: '-id'}, function (latestNote) {
-                 latestNote = latestNote.objects[0];
-                 $window.location.href = '#/course/' + $scope.course.machine_readable_title + '/notes/' + latestNote.machine_readable_title;
-                 });
-            }, function () {
-                $scope.isError = true;
-            });
-        };
-    }])*/
+     // Redirect user to this new note
+     /* EtherpadNote.get({course: $scope.course.id, limit: 1, order_by: '-id'}, function (latestNote) {
+     latestNote = latestNote.objects[0];
+     $window.location.href = '#/course/' + $scope.course.machine_readable_title + '/notes/' + latestNote.machine_readable_title;
+     });
+     }, function () {
+     $scope.isError = true;
+     });
+     };
+     }])*/
 
     .controller('CourseDetailCtrl', ['$scope', '$routeParams', 'Question', 'Answer', 'UserProfile', 'Course', function($scope, $routeParams, Question, Answer, UserProfile, Course) {
 
@@ -130,12 +130,27 @@ app
         $scope.user_profile = UserProfile.query();
         $scope.answers = Answer.query();
 
+        /*$scope.addNewAnswer = function() {
+         $scope.answers.$save({ question: $scope.question.id, user: $scope.question.user.id, content: $scope.newAnswer.content})
+         }*/
+
         $scope.addNewAnswer = function() {
-            $scope.answers.push({ question: $scope.question.id, user: 2, content: $scope.newAnswer.content})
+            var Answer = new Answer({
+                question: $scope.question.id,
+                user: $scope.question.user.id,
+                content: $scope.newAnswer.content
+            })
+            Answer.$save(function () {
+                $rootScope.notifications = [{
+                    class: 'alert-success',
+                    content: 'Answer added.'
+                }];
+            }, function () {
+                $scope.isError = true;
+            });
         }
     }])
 
 
 
 ;
-

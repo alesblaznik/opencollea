@@ -28,7 +28,28 @@
                             <button class="btn btn-success" type="submit">Add new answer</button>
                         </div>
                     </form>
-                </div>-->
+                </div>
+
+                <button ng-click="addNewAnswer()">Add answer</button>
+
+                Q ID: {{ question.id }} U ID: {{ question.user.id }} newAnswer.content: {{ newAnswer.content }}
+                <br>
+                <input type="text" ng-model="newAnswer.content">
+                <br>-->
+                <!--
+                <form ng-submit="createNewNote()">
+                    <div class="control-group" ng-class="{error: isError}">
+                        <input ng-model="newAnswer.content" type="text" class="input-xlarge" placeholder="Write answer...">
+                        <span class="help-inline" ng-show="isError">Error occured.</span>
+                    </div>
+                    <button class="btn btn-success" type="submit">Post new answer</button>
+
+                </form>
+                -->
+                <form ng-submit="createNewNote()">
+                    <input ng-model="newAnswer.content" type="text" class="input-xlarge" placeholder="Write answer...">
+                    <button class="btn btn-success" type="submit">Post new answer</button>
+                </form>
             </div>
         </li>
     </ul>
