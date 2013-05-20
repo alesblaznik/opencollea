@@ -46,12 +46,13 @@
 </div>
 
 <div class="span9" ng-controller="UserClassProfileCtrl">
-  <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
+  <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}
+      <a href="#/profile/{{currentUser.username}}/edit" class="btn pull-right" ng-show="user_profile.id == currentUser.id">
+        <i class="icon-edit"></i>
+        Edit Profile
+      </a>
+  </h2>
 
-  <a href="#/profile/{{currentUser.username}}/edit" class="btn pull-right" ng-show="user_profile.id == currentUser.id">
-    <i class="icon-edit"></i>
-    Edit Profile
-  </a>
 
   <i class="icon-signal"></i> Activity <div class="progress progress-success"><div class="bar" style="width: 80%"></div></div>
   <i class="icon-certificate"></i> Contribution <div class="progress progress-danger"><div class="bar" style="width:10%"></div></div>
