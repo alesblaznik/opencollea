@@ -29,5 +29,6 @@ js = Bundle('js/jquery-2.0.0.js',
             'js/directives/gravatar.js',
             'js/controllers/profile.js',
             'js/controllers/course.js',
+            'js/controllers/home.js',
             output='js/opencollea.js')
 register('js_all', js)
