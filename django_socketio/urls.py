@@ -14,5 +14,4 @@ for app in settings.INSTALLED_APPS:
 
 
 urlpatterns = patterns("django_socketio.views",
-    url("^socket\.io", "socketio", name="socketio"),
-)
+                       url("^socket\.io", "socketio", name="socketio"),)

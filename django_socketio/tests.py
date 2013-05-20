@@ -25,6 +25,7 @@ class MockAttributes(object):
     def __call__(self, *args, **kwargs):
         return None
 
+
 class MockSocketIo(MockAttributes):
     """
     Mock socket.io object for testing.
@@ -52,6 +53,7 @@ class MockSocketIo(MockAttributes):
         """
         return not self.recv_once
 
+
 class SocketIoClient(Client):
     """
     Test client that adds a mocked socketio object to the
@@ -62,6 +64,7 @@ class SocketIoClient(Client):
         environ = super(Client, self)._base_environ(**request)
         environ["socketio"] = MockSocketIo()
         return environ
+
 
 class Tests(TestCase):
     """

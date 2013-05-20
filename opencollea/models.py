@@ -32,7 +32,8 @@ class UserProfile(User):
         code_register.models.Language, blank=True, null=True)
     is_language_code_public = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user_profile/avatar', blank=True)
-    courses_enrolled = models.ManyToManyField('Course', related_name='courses', blank=True)
+    courses_enrolled = models.ManyToManyField(
+        'Course', related_name='courses', blank=True)
     #courses_enrolled = models.ForeignKey('Course', related_name='courses')
     website = models.URLField(blank=True)
     lives_in = models.CharField(max_length=128)
@@ -129,6 +130,7 @@ class Answer(models.Model):
 
     def save(self, *args, **kwargs):
         super(Answer, self).save(*args, **kwargs)
+
 
 class EtherpadNote(models.Model):
     course = models.ForeignKey(Course)
