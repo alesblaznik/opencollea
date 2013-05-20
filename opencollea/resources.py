@@ -9,7 +9,7 @@ from tastypie import fields
 
 from opencollea.models import Course, UserProfile, Question, EtherpadNote
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
-    EtherpadNoteForm, Answer
+    EtherpadNoteForm, Answer, AnswerForm
 
 from fixes.tastypie.validation import ModelCleanedDataFormValidation
 import code_register.resources
@@ -124,6 +124,14 @@ class AnswerResource(ModelResource):
     class Meta:
         queryset = Answer.objects.all()
         resource_name = 'answer'
+        filtering = {
+            'question': ALL,
+        }
+        ordering = ['id']
+        authorization = Authorization()
+        validation = ModelCleanedDataFormValidation(
+            form_class=AnswerForm
+        )
 
 
 
