@@ -5,6 +5,7 @@ import re
 class EventError(Exception):
     pass
 
+
 class Event(object):
     """
     Signal-like object for Socket.IO events that supports
@@ -66,18 +67,19 @@ class Event(object):
             if self.name.endswith("subscribe") and pattern:
                 matches = [pattern.match(args[0])]
             else:
-                matches = [pattern.match(c) for c in socket.channels if pattern]
+                matches = [pattern.match(c)
+                           for c in socket.channels if pattern]
             if no_channel or filter(None, matches):
                 handler(request, socket, context, *args)
 
 
-on_connect      = Event(False)  # request, socket, context
-on_message      = Event()       # request, socket, context, message
-on_subscribe    = Event()       # request, socket, context, channel
-on_unsubscribe  = Event()       # request, socket, context, channel
-on_error        = Event()       # request, socket, context, exception
-on_disconnect   = Event()       # request, socket, context
-on_finish       = Event()       # request, socket, context
+on_connect = Event(False)  # request, socket, context
+on_message = Event()       # request, socket, context, message
+on_subscribe = Event()       # request, socket, context, channel
+on_unsubscribe = Event()       # request, socket, context, channel
+on_error = Event()       # request, socket, context, exception
+on_disconnect = Event()       # request, socket, context
+on_finish = Event()       # request, socket, context
 
 # Give each event a name attribute.
 for k, v in globals().items():

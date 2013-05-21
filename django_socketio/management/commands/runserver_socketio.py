@@ -18,6 +18,7 @@ from django_socketio.settings import HOST, PORT
 
 RELOAD = False
 
+
 def reload_watcher():
     global RELOAD
     while True:
@@ -25,6 +26,7 @@ def reload_watcher():
         if RELOAD:
             kill(getpid(), SIGINT)
         sleep(1)
+
 
 class Command(BaseCommand):
 

@@ -61,7 +61,5 @@ urlpatterns = \
                                             namespace='find_courses')),
 
              url("", include("django_socketio.urls")),
-             url(r'^chat/', include("chat.urls")),
-
-
-    ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+             url(r'^chat/', include("chat.urls")),) \
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

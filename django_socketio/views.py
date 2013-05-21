@@ -41,7 +41,8 @@ def socketio(request):
                     message = messages.next()
                     message_type = "unsubscribe"
                     socket.unsubscribe(message)
-                    events.on_unsubscribe.send(request, socket, context, message)
+                    events.on_unsubscribe.send(
+                        request, socket, context, message)
                 else:
                     # Socket.IO sends arrays as individual messages, so
                     # they're put into an object in socketio_scripts.html
