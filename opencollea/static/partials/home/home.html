@@ -26,7 +26,7 @@
             </div>-->
         </div>
 
-        <div class="span9">
+        <div class="span9" ng-show="showFeed">
             <!--Body content-->
             <div class="leaderboard">
                 <h1>{{ course.title }}</h1>
@@ -34,14 +34,22 @@
                 <p><a class="btn btn-success btn-large" href="#/course/{{ course.machine_readable_title }}">Go to class/enroll me</a></p>
             </div>
             <div class="row-fluid">
-                <div class="well span4" ng-repeat="question in lastquestions.objects">
-                    <h2>{{ question.title }}</h2>
-                    <p>{{ question.content }}</p>
-
-                    <p><a class="btn btn-success btn-large" href="#/course/{{ course.machine_readable_title }}/questions">Go to activity</a></p>
+                <h2>Last questions:</h2>
+                <div class="well span9" ng-repeat="question in course.questions | orderBy:'published':true | limitTo:3">
+                    <h4><a ng-href="#/profile/{{ question.user.username }}">{{ question.user.first_name }} {{ question.user.last_name }}</a> @ {{ question.published | date:'fullDate'}}</h4>
+                    <h4>{{ question.title }}</h4>
+                    <p>{{ question.content }}  <span class="rightFloater">
+                    <a class="btn btn-success" href="#/course/{{ course.machine_readable_title }}/questions">Go to question</a></span></p>
                     <!-- TBD: <span class="label label-info" ng-repeat="tag in question.tags">{{ tag.title }}</span> -->
                 </div><!--/span-->
 
+            </div>
+        </div>
+
+        <div class="span9" ng-hide="showFeed">
+            <div class="leaderboard">
+                <h1>Welcome {{ user_profile.first_name }}</h1>
+                <h3 class="lead"> OpenCollea is a portal designed to help different students all across the world connect, help each other study, and make study a better experience.</h3>
             </div>
         </div>
     </div>
