@@ -133,3 +133,51 @@ ul.doubleList li a:hover {
 }
 
 
+* {margin: 0; padding: 0;}
+
+/* CHAT */
+
+.chatControl textarea {
+    margin: 20px;
+    width: 500px;
+}
+
+.chatMessages {
+  margin: 20px;
+}
+
+ul.chatMessages {
+  list-style-type: none;
+  width: 500px;
+}
+
+.chatMessages li {
+  padding: 10px;
+  overflow: auto;
+}
+
+.chatMessages li:nth-child(odd) {
+    background-color: #E8EBE7;
+}
+
+.chatMessages li:hover {
+  cursor: default;
+  background: #D8DCD6;
+}
+
+.chatMessages li .author {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  color: #002a80;
+}
+
+.chatMessages li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+.chatMessages li .content {
+  padding-top: 10px;
+}
+
+/* END OF CHAT */
+
