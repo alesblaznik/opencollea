@@ -5,7 +5,7 @@ from tastypie.http import HttpUnauthorized
 from tastypie.resources import ModelResource, ALL
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
-from tastypie import fields
+from tastypie import fields, resources
 
 from opencollea.models import Course, UserProfile, Question, EtherpadNote
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
@@ -252,8 +252,10 @@ class AnswerResource(ModelResource):
 
 
 class CourseResource(ModelResource):
+    mooc = fields.ForeignKey('find_courses.resources.MoocCourseResource',
+                             'mooc', null=True)
     questions = fields.ToManyField('opencollea.resources.QuestionResource',
-                                   'questions', full=True)
+                                   'questions', null=True, full=True)
 
     class Meta:
         queryset = Course.objects.all()
@@ -261,8 +263,10 @@ class CourseResource(ModelResource):
         filtering = {
             'id': ALL,
             'machine_readable_title': ALL,
+            'mooc': ALL,
         }
         ordering = ['id']
+        authorization = Authorization()
 
     def prepend_urls(self):
         return [
@@ -325,7 +329,7 @@ class CourseResource(ModelResource):
         mooc_resource = MoocCourseResource()
         objects = []
         for mooc in MoocCourse.objects.exclude(
-                pk__in=[c.mooc for c in
+                pk__in=[c.mooc_id for c in
                         Course.objects.filter(mooc__isnull=False)]
         ):
             bundle = mooc_resource.build_bundle(obj=mooc, request=request)

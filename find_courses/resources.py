@@ -7,3 +7,4 @@ class MoocCourseResource(ModelResource):
         queryset = Course.objects.all()
         resource_name = 'mooc_course'
         allowed_methods = ['get']
+

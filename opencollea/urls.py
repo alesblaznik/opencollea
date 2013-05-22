@@ -10,6 +10,7 @@ from opencollea.resources import \
 from opencollea import settings
 
 import code_register.resources
+import find_courses.resources
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -31,6 +32,9 @@ v1_api.register(code_register.resources.LanguageResource())
 v1_api.register(code_register.resources.AgeRangeResource())
 v1_api.register(code_register.resources.OccupationResource())
 v1_api.register(code_register.resources.AreaOfStudyResource())
+
+# find_courses's API resources
+v1_api.register(find_courses.resources.MoocCourseResource())
 
 urlpatterns = \
     patterns('',
