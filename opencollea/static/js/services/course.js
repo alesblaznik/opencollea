@@ -23,14 +23,14 @@ app
 
 
     .factory('Question', ['$resource', function ($resource) {
-        return $resource('/api/v1/question', {}, {
+        return $resource('/api/v1/question/:id', {}, {
             'query': {method: 'GET'}
         });
     }])
 
 
     .factory('Answer', ['$resource', function ($resource) {
-        return $resource('/api/v1/answer', {}, {
+        return $resource('/api/v1/answer/:id', {}, {
             'query': {method: 'GET'},
             'postNew': {method: 'POST'}
         });
