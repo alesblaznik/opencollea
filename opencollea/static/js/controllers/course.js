@@ -134,6 +134,7 @@ app
          $scope.answers.$save({ question: $scope.question.id, user: $scope.question.user.id, content: $scope.newAnswer.content})
          }*/
 
+        // To ne dela :/
         $scope.addNewAnswer = function() {
             var Answer = new Answer({
                 question: $scope.question.id,
