@@ -171,7 +171,8 @@ class UserProfileResource(ModelResource):
                 posted_pks = [b.obj.pk
                               for b in related_bundles if b.obj.pk]
                 if self._meta.pass_request_user_to_django:
-                    for obj in related_mngr.for_user(user=bundle.request.user).exclude(pk__in=posted_pks):
+                    tmpArr = related_mngr.for_user(user=bundle.request.user)
+                    for obj in tmpArr.exclude(pk__in=posted_pks):
                         obj.delete(user=bundle.request.user)
                 else:
                     for obj in related_mngr.all().exclude(pk__in=posted_pks):
