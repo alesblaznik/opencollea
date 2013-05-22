@@ -2,8 +2,8 @@
 
 app
 
-.controller('DiscoverCtrl', ['$scope', '$window', 'CoursesUserNotEnrolled', 'MoocCoursesNooneTook',
-    function ($scope, $window, CoursesUserNotEnrolled, MoocCoursesNooneTook) {
+.controller('DiscoverCtrl', ['$scope', '$rootScope', '$window', 'CoursesUserNotEnrolled', 'MoocCoursesNooneTook', 'UserProfile',
+    function ($scope, $rootScope, $window, CoursesUserNotEnrolled, MoocCoursesNooneTook, UserProfile) {
     $scope.courses_list = [];
 
     $scope.showOptions = [
@@ -35,6 +35,20 @@ app
                 $window.location.href = '#/course-list';
                 break;
         }
+    }
+
+    $scope.enroll = function (course) {
+        // Enrolling user to new Class
+        UserProfile.get({userId: $scope.currentUser.id}, function (user) {
+            user.courses_enrolled.push(course.id);
+            user.$update({userId: user.id}, function () {
+                $scope.loadList();
+                $rootScope.notifications = [{
+                    class: 'alert-success',
+                    content: 'You\'re enrolled to <b>' + course.title + '</b>.'
+                }];
+            });
+        });
     }
 
     $scope.$watch('showOption', function (newValue, oldValue) {

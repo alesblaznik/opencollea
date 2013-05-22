@@ -26,7 +26,7 @@
                 <td>{{ mixed_course.title }}</td>
                 <td>
                     <button ng-show="mixed_course.hash" class="btn btn-danger">Create Class</button>
-                    <button ng-show="mixed_course.id" class="btn btn-success">Enroll</button>
+                    <button ng-show="mixed_course.id" class="btn btn-success" ng-click="enroll(mixed_course)">Enroll</button>
                 </td>
             </tr>
         </tbody>
