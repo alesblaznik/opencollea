@@ -29,6 +29,11 @@ class ModelCleanedDataFormValidation(CleanedDataFormValidation):
         converted = []
         for one_uri in uris:
             try:
+                # Uporabnik lahko navede samo PK - brez URI
+                if isinstance(one_uri, int):
+                    converted.append(int(one_uri))
+                    continue
+
                 # hopefully /api/v1/<resource_name>/<pk>
                 # Zaradi AngularJS ne uporabljamo trailing slasha!!!
                 # -2 za trailing slash

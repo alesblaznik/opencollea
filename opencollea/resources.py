@@ -5,7 +5,7 @@ from tastypie.http import HttpUnauthorized
 from tastypie.resources import ModelResource, ALL
 from django.conf.urls import url
 from tastypie.utils import trailing_slash
-from tastypie import fields
+from tastypie import fields, resources
 
 from opencollea.models import Course, UserProfile, Question, EtherpadNote
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
@@ -87,7 +87,8 @@ class LoginResource(ModelResource):
 
 class UserProfileResource(ModelResource):
     courses_enrolled = fields.ToManyField(
-        'opencollea.resources.CourseResource', 'courses_enrolled')
+        'opencollea.resources.CourseResource', 'courses_enrolled',
+        related_name='courses_enrolled')
     language_code = fields.ForeignKey(
         code_register.resources.LanguageResource, 'language_code', null=True)
     age_range = fields.ForeignKey(
@@ -106,7 +107,9 @@ class UserProfileResource(ModelResource):
         filtering = {
             'username': ALL,
         }
-        excludes = ['password']
+        excludes = ['password', 'courses_enrolled']
+        put_excludes = ['courses_enrolled']
+        post_excludes = ['courses_enrolled']
         authorization = Authorization()
         validation = ModelCleanedDataFormValidation(form_class=UserProfileForm)
 
@@ -119,6 +122,79 @@ class UserProfileResource(ModelResource):
                 self.wrap_view('get_courses_not_enrolled'),
                 name="api_get_courses_not_enrolled"),
         ]
+
+    def save_m2m(self, bundle):
+        """
+        Handles the saving of related M2M data.
+
+        Due to the way Django works, the M2M data must be handled after the
+        main instance, which is why this isn't a part of the main ``save``
+        bits.
+
+        Currently slightly inefficient in that it will clear out the whole
+        relation and recreate the related data as needed.
+        """
+        for field_name, field_object in self.fields.items():
+            if not getattr(field_object, 'is_m2m', False):
+                continue
+
+            if not field_object.attribute:
+                continue
+
+            if field_object.blank:
+                continue
+
+            if field_object.readonly:
+                continue
+
+            # Get the manager.
+            related_mngr = getattr(bundle.obj, field_object.attribute)
+            through_class = getattr(related_mngr, 'through', None)
+
+            if through_class and not through_class._meta.auto_created:
+                # ManyToMany with an explicit intermediary table.
+                # This should be handled by with specific code, so continue
+                # without modifying anything.
+                # NOTE: this leaves the bundle.needs_save set to True
+                continue
+
+            related_bundles = bundle.data[field_name]
+
+            # Remove any relations that were not POSTed
+            if through_class:
+                # ManyToMany with hidden intermediary table.
+                # Use the manager to clear out the relations.
+                related_mngr.clear()
+            else:
+                # OneToMany with foreign keys to this object.
+                # Explicitly delete objects to pass in the user.
+                posted_pks = [b.obj.pk
+                              for b in related_bundles if b.obj.pk]
+                if self._meta.pass_request_user_to_django:
+                    for obj in related_mngr.for_user(user=bundle.request.user).exclude(pk__in=posted_pks):
+                        obj.delete(user=bundle.request.user)
+                else:
+                    for obj in related_mngr.all().exclude(pk__in=posted_pks):
+                        obj.delete()
+
+            # Save the posted related objects
+            related_objs = []
+            for related_bundle in related_bundles:
+                related_objs.append(related_bundle.obj)
+                """
+                if related_bundle.needs_save:
+                    if self._meta.pass_request_user_to_django:
+                        related_bundle.obj.save(user=bundle.request.user)
+                    else:
+                        related_bundle.obj.save()
+                    related_bundle.needs_save = False
+                """
+
+            if through_class:
+                # ManyToMany with hidden intermediary table. Since the save
+                # method on a hidden table can not be overridden we can use the
+                # related_mngr to add.
+                related_mngr.add(*related_objs)
 
     def get_courses_not_enrolled(self, request, **kwargs):
         """
@@ -176,8 +252,10 @@ class AnswerResource(ModelResource):
 
 
 class CourseResource(ModelResource):
+    mooc = fields.ForeignKey('find_courses.resources.MoocCourseResource',
+                             'mooc', null=True)
     questions = fields.ToManyField('opencollea.resources.QuestionResource',
-                                   'questions', full=True)
+                                   'questions', null=True, full=True)
 
     class Meta:
         queryset = Course.objects.all()
@@ -185,8 +263,10 @@ class CourseResource(ModelResource):
         filtering = {
             'id': ALL,
             'machine_readable_title': ALL,
+            'mooc': ALL,
         }
         ordering = ['id']
+        authorization = Authorization()
 
     def prepend_urls(self):
         return [
@@ -249,7 +329,7 @@ class CourseResource(ModelResource):
         mooc_resource = MoocCourseResource()
         objects = []
         for mooc in MoocCourse.objects.exclude(
-                pk__in=[c.mooc for c in
+                pk__in=[c.mooc_id for c in
                         Course.objects.filter(mooc__isnull=False)]
         ):
             bundle = mooc_resource.build_bundle(obj=mooc, request=request)

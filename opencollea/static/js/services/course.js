@@ -12,7 +12,6 @@ app
 
 
     .factory('Course', ['$resource', function ($resource) {
-        /*         return $resource('/api/v1/course', {}, { */
         return $resource('/api/v1/course/:id',
             {}, {
                 query: {method: 'GET', isArray: false},
