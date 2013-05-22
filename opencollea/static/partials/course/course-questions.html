@@ -1,4 +1,4 @@
-<div class="row-fluid" ng-controller="CourseDetailCtrl">
+<div class="row-fluid" ng-controller="QAController">
     <ul class="unstyled">
         <li ng-repeat="question in course.questions">
             <div class="well well-large">
@@ -16,39 +16,13 @@
                     </li>
                 </ul>
                 <br>
-                <!-- Add answer -->
-                <!--<div ng-controller="AddNewAnswerCtrl">
-                    <form ng-submit="addNewAnswer()">
-                        <div class="control-group" ng-class="{error: isError}">
-                            <label class="control-label">Answer content</label>
-                            <input ng-model="content" type="text" class="input-xlarge" placeholder="Add answer...">
-                            <span class="help-inline" ng-show="isError">Error while adding answer.</span>
-                        </div>
-                        <div>
-                            <button class="btn btn-success" type="submit">Add new answer</button>
-                        </div>
-                    </form>
-                </div>
 
-                <button ng-click="addNewAnswer()">Add answer</button>
-
-                Q ID: {{ question.id }} U ID: {{ question.user.id }} newAnswer.content: {{ newAnswer.content }}
-                <br>
-                <input type="text" ng-model="newAnswer.content">
-                <br>-->
-                <!--
-                <form ng-submit="createNewNote()">
+                <form class="form-inline" ng-controller="AnswerSubmission" ng-submit="answer(question)">
                     <div class="control-group" ng-class="{error: isError}">
-                        <input ng-model="newAnswer.content" type="text" class="input-xlarge" placeholder="Write answer...">
-                        <span class="help-inline" ng-show="isError">Error occured.</span>
+                        <input ng-model="answerMessage" type="text" class="input-xlarge" placeholder="Write answer...">
+                        <button form-save-button-loading="Answering..." class="btn btn-success" type="submit">Post new answer</button>
+                        <span class="help-inline" ng-repeat="error_msg in errors.answer">{{ error_msg }}</span>
                     </div>
-                    <button class="btn btn-success" type="submit">Post new answer</button>
-
-                </form>
-                -->
-                <form ng-submit="createNewNote()">
-                    <input ng-model="newAnswer.content" type="text" class="input-xlarge" placeholder="Write answer...">
-                    <button class="btn btn-success" type="submit">Post new answer</button>
                 </form>
             </div>
         </li>

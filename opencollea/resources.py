@@ -81,6 +81,7 @@ class LoginResource(ModelResource):
             'id': request.user.id,
             'username': request.user.username,
             'email': request.user.email,
+            'resource_uri': '/api/v1/user_profile/' + str(request.user.id)
         }
         return self.create_response(request, user)
 
