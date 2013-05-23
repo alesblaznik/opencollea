@@ -114,10 +114,10 @@ class Reference(models.Model):
 class Question(models.Model):
     user = models.ForeignKey(UserProfile)
     title = models.CharField(max_length=50)
-    content = models.TextField()
-    tags = models.ManyToManyField(Tag)
+    content = models.TextField(blank=False)
+    tags = models.ManyToManyField(Tag, blank=True)
     course = models.ForeignKey('Course', related_name='questions')
-    published = models.DateField()
+    published = models.DateField(auto_now=True)
 
     def __unicode__(self):
         return self.title
