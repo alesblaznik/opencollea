@@ -31,6 +31,7 @@ app
         $scope.createNewNote = function () {
             // Save note and redirect to created note!
             var Note = new EtherpadNote({
+                user: $scope.currentUser.resource_uri,
                 course: $scope.course.resource_uri,
                 title: $scope.title
             });
@@ -160,6 +161,18 @@ app
                 $scope.loading = false;
             });
         }
+    }])
+
+
+    .controller('ActivityCtrl', ['$scope', 'CourseActivity', function ($scope, CourseActivity) {
+        $scope.$watch('course', function (newValue, oldValue) {
+            if (newValue != oldValue) {
+                $scope.activities = CourseActivity.get({course: $scope.course.id}, function () {
+                    // Success
+                    $scope.activities = $scope.activities.objects;
+                });
+            }
+        });
     }])
 
 ;
