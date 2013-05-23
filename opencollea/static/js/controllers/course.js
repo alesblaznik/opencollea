@@ -163,4 +163,16 @@ app
         }
     }])
 
+
+    .controller('ActivityCtrl', ['$scope', 'CourseActivity', function ($scope, CourseActivity) {
+        $scope.$watch('course', function (newValue, oldValue) {
+            if (newValue != oldValue) {
+                $scope.activities = CourseActivity.get({course: $scope.course.id}, function () {
+                    // Success
+                    $scope.activities = $scope.activities.objects;
+                });
+            }
+        });
+    }])
+
 ;

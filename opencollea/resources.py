@@ -7,7 +7,8 @@ from django.conf.urls import url
 from tastypie.utils import trailing_slash
 from tastypie import fields, resources
 
-from opencollea.models import Course, UserProfile, Question, EtherpadNote
+from opencollea.models import Course, UserProfile, Question, EtherpadNote, \
+    CourseActivity
 from opencollea.forms import UserProfileForm, RegistrationDetailsForm, \
     EtherpadNoteForm, Answer, AnswerForm, QuestionForm
 
@@ -384,3 +385,16 @@ class EtherpadNoteResource(ModelResource):
         validation = ModelCleanedDataFormValidation(
             form_class=EtherpadNoteForm
         )
+
+
+class CourseActivityResource(ModelResource):
+    user = fields.ForeignKey(UserProfileResource, 'user', full=True)
+    course = fields.ForeignKey(CourseResource, 'course')
+    class Meta:
+        queryset = CourseActivity.objects.all()
+        resource_name = 'course_activity'
+        filtering = {
+            'user': ALL,
+            'course': ALL,
+        }
+

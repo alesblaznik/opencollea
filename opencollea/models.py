@@ -162,8 +162,10 @@ class CourseActivity(models.Model):
     )
     course = models.ForeignKey(Course)
     user = models.ForeignKey(UserProfile)
+    msg = models.TextField(blank=True, null=True)
     model_name = models.CharField(max_length=48, blank=False, null=False)
     model_id = models.IntegerField()
     action_performed = models.CharField(max_length=24, choices=ACTIONS,
                                         default=ACTION_CREATED)
+    when = models.DateTimeField(auto_now=True)
 
