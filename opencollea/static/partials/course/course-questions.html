@@ -1,12 +1,37 @@
-<div class="row-fluid">
-    <a title="Ask Question" class="btn btn-danger pull-right" ng-click="askQuestion()">
+<div class="row-fluid" ng-controller="QAController">
+    <a title="Ask Question" class="btn btn-danger pull-right" ng-click="openModal()">
             <i class="icon-trash"></i> Ask question
     </a>
+
+    <div modal="isModalOpen" options="modalOpts">
+        <div class="modal-header">
+            <h4>Ask Question</h4>
+        </div>
+        <form ng-submit="createNewQuestion()">
+            <div class="modal-body">
+                <div class="control-group" ng-class="{error: errors.question.title}">
+                    <label class="control-label">Question title</label>
+                    <input ng-model="title" type="text" class="input-xlarge" placeholder="Note title">
+                    <span class="help-inline" ng-repeat="error_msg in errors.question.title">{{ error_msg }}</span>
+                </div>
+                <div class="control-group" ng-class="{error: errors.question.content}">
+                    <label class="control-label">Express yourself</label>
+                    <textarea ng-model="content" type="text" class="input-xlarge" placeholder="Note title"></textarea>
+                    <span class="help-inline" ng-repeat="error_msg in errors.question.content">{{ error_msg }}</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button form-save-button-loading="Asking..." class="btn btn-success" type="submit">Ask!</button>
+                <a class="btn" ng-click="closeModal()">Cancel</a>
+            </div>
+        </form>
+    </div>
+
 </div>
 
-<div class="row-fluid" ng-controller="QAController">
+<div class="row-fluid">
     <ul class="unstyled">
-        <li ng-repeat="question in course.questions">
+        <li ng-repeat="question in course.questions | orderBy:'-id'">
             <div class="well well-large">
                 <h4>  {{ question.title }} </h4>
                 <small> Author: <a ng-href="#/profile/{{ question.user.username }}">
@@ -25,7 +50,7 @@
 
                 <form class="form-inline" ng-controller="AnswerSubmission" ng-submit="answer(question)">
                     <div class="control-group" ng-class="{error: isError}">
-                        <input ng-model="answerMessage" type="text" class="input-xlarge" placeholder="Write answer...">
+                        <input ng-model="answerMessage" type="text" class="input-xxlarge" placeholder="Write answer...">
                         <button form-save-button-loading="Answering..." class="btn btn-success" type="submit">Post new answer</button>
                         <span class="help-inline" ng-repeat="error_msg in errors.answer">{{ error_msg }}</span>
                     </div>

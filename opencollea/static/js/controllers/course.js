@@ -94,8 +94,46 @@ app
         }
     }])
 
-    .controller('QAController', ['$scope', '$rootScope', 'Question', function ($scope, $rootScope, Question) {
+    .controller('QAController', ['$scope', '$rootScope', 'Question', 'Course', function ($scope, $rootScope, Question, Course) {
+        $scope.errors = {};
+        $scope.loading = false;
+        $scope.isModalOpen = false;
+        $scope.modalOpts = {
+            backdropFade: true,
+            dialogFade: true
+        };
 
+        $scope.openModal = function () {
+            $scope.isModalOpen = true;
+        };
+
+        $scope.closeModal = function () {
+            $scope.isModalOpen = false;
+        };
+
+        $scope.createNewQuestion = function () {
+            $scope.loading = true;
+            var q = new Question({
+                user: $scope.currentUser.resource_uri,
+                title: $scope.title,
+                content: $scope.content,
+                course: $rootScope.course.resource_uri
+            });
+
+            q.$save(function () {
+                // Success
+                Course.get({id: $rootScope.course.id}, function (course) {
+                    $rootScope.course = course;
+                    $scope.isError = false;
+                    $scope.loading = false;
+                    $scope.isModalOpen = false;
+                });
+            }, function (response) {
+                $scope.errors = response.data;
+                $scope.isError = true;
+                $scope.loading = false;
+            });
+        }
     }])
 
     .controller('AnswerSubmission', ['$scope', '$rootScope', 'Answer', 'Course', function ($scope, $rootScope, Answer, Course) {
@@ -117,7 +155,6 @@ app
                     $scope.loading = false;
                 });
             }, function (response) {
-                console.log(response);
                 $scope.errors.answer = response.data.answer.content;
                 $scope.isError = true;
                 $scope.loading = false;
