@@ -6,6 +6,9 @@ from opencollea.models import CourseActivity, Question, Answer, EtherpadNote
 
 @receiver(post_save)
 def course_activity_stream(sender, instance, created, **kwargs):
+    if not created:
+        return
+
     if isinstance(instance, Answer) or isinstance(instance, Question) or \
             isinstance(instance, EtherpadNote):
         if isinstance(instance, Answer):
