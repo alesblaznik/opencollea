@@ -1,14 +1,17 @@
 <div class="row-fluid">
-
-    <div class="alert alert-block alert-success">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <h4>You're awesome!</h4>
-      <p>Here you can chat with other people.</p>
+    <h4>Live Chat</h4>
+    <div class="chatControl">
+        <textarea placeholder="Type in message ..." data-ng-model="messageTextArea">
+        </textarea>
+        <button type="button" class="btn btn-success" data-ng-click="postMessage()">Post</button>
     </div>
 
-</div>
-
-
-<div class="row-fluid" ng-controller="ChatCtrl">
-
+    <ul class="chatMessages">
+        <li data-ng-repeat="message in messages | limitTo:7 | reverse">
+            <gravatar-image data-email="message.email" data-size="100" data-default="http://www.gravatar.com/avatar/uporabnik-nima-slike?size=100"></gravatar-image>
+            <div class="author">{{ message.author }}</div>
+            <div class="time">{{ message.time }}</div>
+            <div class="content"><pre>{{ message.content }}</pre></div>
+        </li>
+    </ul>
 </div>
