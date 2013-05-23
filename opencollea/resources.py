@@ -368,6 +368,7 @@ class RegistrationDetailsResource(ModelResource):
 
 
 class EtherpadNoteResource(ModelResource):
+    user = fields.ForeignKey(UserProfileResource, 'user')
     course = fields.ForeignKey(CourseResource, 'course')
 
     class Meta:

@@ -133,6 +133,7 @@ class Answer(models.Model):
 
 
 class EtherpadNote(models.Model):
+    user = models.ForeignKey(UserProfile)
     course = models.ForeignKey(Course)
     title = models.CharField(max_length=48, blank=False, null=False)
     machine_readable_title = models.SlugField(max_length=48, unique=True,
@@ -152,3 +153,17 @@ class EtherpadNote(models.Model):
                           % (self.course.id,
                           self.machine_readable_title)
         super(EtherpadNote, self).save(*args, **kwargs)
+
+
+class CourseActivity(models.Model):
+    ACTION_CREATED = 'created'
+    ACTIONS = (
+        (ACTION_CREATED, 'created'),
+    )
+    course = models.ForeignKey(Course)
+    user = models.ForeignKey(UserProfile)
+    model_name = models.CharField(max_length=48, blank=False, null=False)
+    model_id = models.IntegerField()
+    action_performed = models.CharField(max_length=24, choices=ACTIONS,
+                                        default=ACTION_CREATED)
+

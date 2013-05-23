@@ -31,6 +31,7 @@ app
         $scope.createNewNote = function () {
             // Save note and redirect to created note!
             var Note = new EtherpadNote({
+                user: $scope.currentUser.resource_uri,
                 course: $scope.course.resource_uri,
                 title: $scope.title
             });
