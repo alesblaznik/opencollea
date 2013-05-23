@@ -12,7 +12,7 @@ var app = angular.module('opencollea', ['opencolleaServices','http-auth-intercep
             .when('/profile/:username/edit', {templateUrl: '/static/partials/profile/user-profile-form.html', controller: 'UserProfileEditCtrl'})
             .when('/auth/edit', {templateUrl: '/static/partials/profile/user-registration-edit-form.html', controller: 'UserRegistrationDetailsEditCtrl'})
             .when('/new-course', {templateUrl: '/static/partials/course/new-course.html', controller: CourseCtrl})
-            //.when('/chat', {templateUrl: '/static/partials/chat/chat.html', controller: ChatCtrl})
+            .when('/chat', {templateUrl: '/static/partials/chat/chat.html', controller: 'ChatCtrl'})
             .otherwise({redirectTo: '/home/'});
     }]);
 
